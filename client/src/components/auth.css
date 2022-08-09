@@ -1,0 +1,26 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  height: 100%;
+  font-family: Roboto, sans-serif;
+}
+.container-register {
+  background-image: url(../assets/banner.jpg);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+}
+.wrap-input {
+  display: block;
+  border: 1px solid #e6e6e6;
+}
+.inp{
+  border-top: none
+}
+
