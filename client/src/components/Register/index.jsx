@@ -5,6 +5,8 @@ import '../auth.css';
 import axiosClient from '../../axiosClient';
 // import { yupResolver } from "@hookform/resolvers/yup";
 // import * as yup from "yup";
+import { useNavigate } from "react-router-dom";
+
 
 export function Input(props) {
   const { name, id, placeholder } = props;
@@ -25,6 +27,7 @@ export function Input(props) {
 export default function Register() {
   // const methods = useForm();
   // const onSubmit = (data) => console.log(data);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,19 +35,19 @@ export default function Register() {
     const password = e.target.password.value;
     const passwordConfirm = e.target.passwordConfirm.value;
 
-    console.log(username, password, passwordConfirm)
+    console.log(username, password, passwordConfirm);
 
     try {
-      const response = await axiosClient.post('/auth/register',{
+      const response = await axiosClient.post('/auth/register', {
         username,
         password,
-        passwordConfirm
-      })
+        passwordConfirm,
 
-      console.log(response)
-
+      });
+      navigate("/login", { replace: true });
+      console.log(response);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -55,7 +58,7 @@ export default function Register() {
     >
       {/* <FormProvider {...methods}> */}
       <div className="border-2 bg-white rounded-xl pr-14 pl-14 pb-14 pt-10">
-        <form onSubmit={handleSubmit} >
+        <form onSubmit={handleSubmit}>
           <h1 className="text-center pb-10 font-semibold text-3xl">Register</h1>
           <div className="">
             <Input placeholder="Username" id="username" name="username" />

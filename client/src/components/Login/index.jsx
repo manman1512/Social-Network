@@ -4,28 +4,39 @@ import { Input } from '../Register';
 // import { useForm, FormProvider } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import axiosClient from '../../axiosClient';
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   // const methods = useForm();
   // const onSubmit = (data) => console.log(data);
 
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     const username = e.target.username.value;
     const password = e.target.password.value;
 
-    console.log(username, password);
+    // console.log(username, password);
 
     try {
       const response = await axiosClient.post('/auth/login', {
         username,
         password,
       });
+      navigate("/home", {replace: true})
       console.log(response);
     } catch (error) {
       console.log(error);
     }
+
+    // await submitForm(e.target);
+   
+   
   };
+  // const handleClick = async (e) =>{
+  //   e.preventDefault(e);
+
+  // }
 
   return (
     <div
@@ -49,6 +60,7 @@ export default function Login() {
               className="border-2 wrap-input relative w-full h-12 outline-none py-0 px-6 mt-5 
                 bg-slate-800 text-white hover:bg-slate-600"
               type="submit"
+              // onClick= {handleClick}
             >
               LOGIN
             </button>
