@@ -17,7 +17,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/post/:postId" element={<Single />} />
           <Route path="/write" element={<Write />} />
-          <Route path="/Setting" element={<Setting />}/>
+          <Route path="/setting" element={<Setting />}/>
         </Routes>
       </div>
     </Router>

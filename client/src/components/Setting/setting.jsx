@@ -4,7 +4,7 @@ import Sidebar from '../Home/sidebar';
 import { FaUserAlt } from 'react-icons/fa';
 import { BsFillPencilFill } from 'react-icons/bs';
 
-export default function setting() {
+export default function Setting() {
   return (
     <div>
       <Topbar />

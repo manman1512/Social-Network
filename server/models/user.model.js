@@ -15,18 +15,7 @@ const userSchema = new Schema({
     type: String,
     require: true,
   },
-  // email:{
-  //   type: String,
-  //   require: false,
-  // },
-  // address:{
-  //   type: String,
-  //   require: false
-  // },
-  // phoneNumber:{
-  //    type: String,
-  //    require: false
-  // },
+  
   createdAt: {
     type: Date,
     default: Date.now,

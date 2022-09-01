@@ -68,6 +68,7 @@ module.exports = {
       
       // All okay => return token
       const accessToken = jwt.sign({ userId: User._id }, process.env.ACCESS_TOKEN_SECRET);
+      // console.log("🚀 ~ file: auth.controller.js ~ line 71 ~ login: ~ accessToken", accessToken)
   
       res.json({ success: true, message: 'Dang nhap thanh cong!', accessToken, User});
   
@@ -77,3 +78,21 @@ module.exports = {
     }
   },
 }
+
+
+// user.findByIdAndUpdate(
+//   id,
+//   { $set: req.body },
+//   { new: true },
+//   (err, user) => {
+//     if (err) {
+//       return res.status(400).json({
+//         message: 'Cap nhat khong thanh cong!',
+//       });
+//     } else {
+//       return res
+//         .status(200)
+//         .json({ success: 'true', message: 'Cap nhat thanh cong!', user });
+//     }
+//   }
+// );
