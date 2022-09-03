@@ -13,11 +13,11 @@ export default function Setting() {
           <div className="flex mb-3 items-center">
             <BsFillPencilFill />
             <span className="text-3xl ml-2 text-lime-500">
-              Update your account
+              Cập nhật tài khoản của bạn
             </span>
           </div>
           <form className="flex flex-col">
-            <label className="mb-3">Profile Picture</label>
+            <label className="mb-3">Ảnh đại diện</label>
             <div className="flex items-center">
               <img
                 className="rounded-full w-20 h-20 object-cover"
@@ -34,7 +34,7 @@ export default function Setting() {
               />
             </div>
             <label htmlFor="username" className="mt-3">
-              Username
+              Tên đăng nhập
             </label>
             <input
               type="text"
@@ -43,7 +43,7 @@ export default function Setting() {
               className="outline-none border-1 border border-green-500 p-1"
             />
             <label htmlFor="password" className="mt-3">
-              Password
+              Mật khẩu
             </label>
             <input
               type="password"
@@ -52,14 +52,14 @@ export default function Setting() {
               className="outline-none border-1 border border-green-500 p-1"
             />
             <span className="mt-3 text-red-500 text-xs cursor-pointer font-bold">
-              Delete account
+              Xoá tài khoản
             </span>
 
             <button
               className="position cursor-pointer bg-lime-700 rounded-md p-1 text-white mt-5"
               type="submit"
             >
-              Update
+              Cập nhật
             </button>
           </form>
         </div>

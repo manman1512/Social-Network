@@ -4,7 +4,7 @@ import { Input } from '../Register';
 // import { useForm, FormProvider } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import axiosClient from '../../axiosClient';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
   // const methods = useForm();
@@ -23,21 +23,14 @@ export default function Login() {
         username,
         password,
       });
-      navigate("/home", {replace: true})
+      navigate('/home', { replace: true });
       console.log(response);
     } catch (error) {
       console.log(error);
     }
 
-    // await submitForm(e.target);
-   
-   
   };
-  // const handleClick = async (e) =>{
-  //   e.preventDefault(e);
-
-  // }
-
+  
   return (
     <div
       className="container-register p-5 w-full min-h-screen flex flex-wrap 
@@ -46,11 +39,17 @@ export default function Login() {
       {/* <FormProvider {...methods}> */}
       <div className="border-2 bg-white rounded-xl pr-14 pl-14 pb-14 pt-10">
         <form onSubmit={handleSubmit} action="">
-          <h1 className="text-center pb-10 font-semibold text-3xl">Login</h1>
+          <h1 className="text-center pb-10 font-semibold text-3xl">
+            ĐĂNG NHẬP
+          </h1>
           <div className="">
-            <Input placeholder="Username" id="username" name="username" />
             <Input
-              placeholder="Password"
+              placeholder="Tên đăng nhập..."
+              id="username"
+              name="username"
+            />
+            <Input
+              placeholder="Mật khẩu..."
               id="password"
               name="password"
               className="inp"
@@ -62,13 +61,12 @@ export default function Login() {
               type="submit"
               // onClick= {handleClick}
             >
-              LOGIN
+              Đăng nhập
             </button>
             <div className="pt-11 font-mono">
-              <span>Already have an account?</span>
-              <Link to="/register" className="hover:text-blue-500">
-                {' '}
-                Register{' '}
+              <span>Bạn chưa có tài khoản?</span>
+              <Link to="/register" className="hover:text-blue-500 ml-2">
+                Đăng ký
               </Link>
             </div>
           </div>

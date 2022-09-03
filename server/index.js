@@ -9,6 +9,8 @@ const userRouter = require('./routes/user');
 const postRouter = require('./routes/post');
 const categoryRouter = require('./routes/category');
 
+const multer = require('multer');
+
 const middleware = require('./middleware');
 
 const app = express();
@@ -33,6 +35,20 @@ app.use(
     origin: '*',
   })
 );
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'images');
+  },
+  filename: (req, file, cb) => {
+    cb(null, req.body.name);
+  }
+})
+
+const upload = multer({ storage: storage })
+app.post("/api/upload", upload.single("file"), (req, res)=>{
+  res.status(200).json("File da duoc uploaded!")
+})
 
 app.use('/api/auth', authRouter);
 app.use(middleware);

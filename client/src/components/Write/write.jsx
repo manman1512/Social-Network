@@ -25,7 +25,7 @@ export default function Write() {
             <input
               type="text"
               name="title"
-              placeholder="Title..."
+              placeholder="Tiêu đề..."
               autoFocus={true}
               className="text-xl border-none p-5 outline-none text-slate-500"
             />
@@ -34,7 +34,7 @@ export default function Write() {
             <textarea
               id="title"
               name="title"
-              placeholder="Tell your story..."
+              placeholder="Câu chuyện của bạn..."
               className=" text-xl w-4/5 bg-slate-100 rounded-xl p-4 outline-none text-slate-400"
             ></textarea>
           </div>
@@ -42,7 +42,7 @@ export default function Write() {
             className="position cursor-pointer bg-lime-700 rounded-md p-1 text-white mt-5"
             type="submit"
           >
-            Publish
+            Đăng
           </button>
         </form>
       </div>

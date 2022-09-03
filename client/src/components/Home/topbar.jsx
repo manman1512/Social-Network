@@ -12,17 +12,17 @@ export default function Topbar() {
               to="/home"
               className="no-underline text-inherit hover:text-lime-500"
             >
-              HOME
+              Trang Chủ
             </Link>
           </li>
-          <li className="m-5">ABOUT</li>
-          <li className="m-5">CONTACT</li>
+          <li className="m-5">Về tôi</li>
+          <li className="m-5">Liên Hệ</li>
           <li className="m-5">
             <Link
               to="/write"
               className="no-underline text-inherit hover:text-lime-500"
             >
-              WRITE
+              Viết Bài
             </Link>
           </li>
         </ul>

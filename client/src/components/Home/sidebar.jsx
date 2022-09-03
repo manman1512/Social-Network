@@ -10,7 +10,7 @@ export default function Sidebar() {
       <div className="p-5 bg-green-100">
         <div className="flex flex-col items-center border-y border-solid border-gray-500">
           <span className="text-neutral-500  border-solid border-gray-500">
-            ABOUT ME
+            THÔNG TIN CÁ NHÂN
           </span>
         </div>
         <div className="flex flex-col items-center border-">
@@ -19,14 +19,13 @@ export default function Sidebar() {
             src="https://cdn.alongwalker.co/vn/wp-content/uploads/2022/03/25163323/image-cung-hoc-ngay-cach-tao-dang-chup-hinh-dep-voi-hoa-xin-xo-het-biet-164817560388683.jpg"
           />
           <p className="w-72 break-words">
-            Hey there, I’m man. I’m a student living in VietNam. I am a fan of
-            travel, writing, and singing. I’m also interested in gaming and
-            education.
+            Xin chào, tui là Mẩn. Tui là sinh sinh viên CTU. Thích gì kệ kao xem
+            làm chi??? Ủa alo ahiiiiiiiiiiiii
           </p>
         </div>
         <div className="flex flex-col items-center border-y border-solid border-gray-500 m-8">
           <div className="flex items-center ">
-            <p className="text-neutral-500">FOLLOW ME </p>
+            <p className="text-neutral-500">FOLLOW</p>
             <IoMdAdd size="1.2rem" color="green" className="ml-1" />
           </div>
         </div>

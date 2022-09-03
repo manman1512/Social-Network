@@ -59,17 +59,17 @@ export default function Register() {
       {/* <FormProvider {...methods}> */}
       <div className="border-2 bg-white rounded-xl pr-14 pl-14 pb-14 pt-10">
         <form onSubmit={handleSubmit}>
-          <h1 className="text-center pb-10 font-semibold text-3xl">Register</h1>
+          <h1 className="text-center pb-10 font-semibold text-3xl">ĐĂNG KÝ</h1>
           <div className="">
-            <Input placeholder="Username" id="username" name="username" />
+            <Input placeholder="Tên đăng nhập..." id="username" name="username" />
             <Input
-              placeholder="Password"
+              placeholder="Mật khẩu..."
               id="password"
               name="password"
               className="inp"
             />
             <Input
-              placeholder="Password Confirm"
+              placeholder="Nhập lại mật khẩu..."
               id="passwordConfirm"
               name="passwordConfirm"
               className="inp"
@@ -79,13 +79,12 @@ export default function Register() {
                 bg-slate-800 text-white hover:bg-slate-600"
               type="submit"
             >
-              REGISTER
+              Đăng ký
             </button>
             <div className="pt-11 font-mono">
-              <span>Already have an account?</span>
-              <Link to="/login" className="hover:text-blue-500">
-                {' '}
-                Login{' '}
+              <span>Bạn đã có tài khoản?</span>
+              <Link to="/login" className="hover:text-blue-500 ml-2">
+                Đăng nhập
               </Link>
             </div>
           </div>
