@@ -6,6 +6,8 @@ const cors = require('cors');
 
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/user');
+const postRouter = require('./routes/post');
+const categoryRouter = require('./routes/category');
 
 const middleware = require('./middleware');
 
@@ -34,9 +36,9 @@ app.use(
 
 app.use('/api/auth', authRouter);
 app.use(middleware);
-app.use('/api/users/update', userRouter);
-app.use('/api/users/deleteById', userRouter);
-app.use('/api/users/getById', userRouter);
+app.use('/api/users', userRouter);
+app.use('/api/post', postRouter);
+app.use('/api/categories', categoryRouter);
 
 server.listen(PORT, () => {
   console.log('Server is running on port ' + PORT);

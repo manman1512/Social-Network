@@ -80,19 +80,3 @@ module.exports = {
 }
 
 
-// user.findByIdAndUpdate(
-//   id,
-//   { $set: req.body },
-//   { new: true },
-//   (err, user) => {
-//     if (err) {
-//       return res.status(400).json({
-//         message: 'Cap nhat khong thanh cong!',
-//       });
-//     } else {
-//       return res
-//         .status(200)
-//         .json({ success: 'true', message: 'Cap nhat thanh cong!', user });
-//     }
-//   }
-// );
