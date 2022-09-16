@@ -1,6 +1,6 @@
 const argon2 = require("argon2");
 const jwt = require("jsonwebtoken");
-
+require("dotenv").config();
 const { json } = require("express");
 const user = require("../models/user.model");
 
@@ -67,7 +67,7 @@ module.exports = {
           .json({ success: false, message: 'Username hoac Password khong dung!' });
       
       // All okay => return token
-      const accessToken = jwt.sign({ userId: User._id }, process.env.ACCESS_TOKEN_SECRET);
+      const accessToken = jwt.sign({ userId: User._id, username: User.username }, process.env.ACCESS_TOKEN_SECRET);
       // console.log("🚀 ~ file: auth.controller.js ~ line 71 ~ login: ~ accessToken", accessToken)
   
       res.json({ success: true, message: 'Dang nhap thanh cong!', accessToken, User});

@@ -1,30 +1,39 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import '../auth.css';
 import { Input } from '../Register';
 // import { useForm, FormProvider } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import axiosClient from '../../axiosClient';
 import { useNavigate } from 'react-router-dom';
+import { Context } from '../context/Context';
+import { setUser } from '../context/Actions';
+
 
 export default function Login() {
-  // const methods = useForm();
-  // const onSubmit = (data) => console.log(data);
 
   const navigate = useNavigate();
+  const [state, dispatch] = useContext(Context);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const username = e.target.username.value;
     const password = e.target.password.value;
-
-    // console.log(username, password);
 
     try {
       const response = await axiosClient.post('/auth/login', {
         username,
         password,
       });
-      navigate('/home', { replace: true });
       console.log(response);
+      const token = response.data.accessToken;
+      const user = response.data.User;
+      if(user){
+        dispatch(setUser(user))
+      }
+      console.log("🚀 ~ file: index.jsx ~ line 25 ~ handleSubmit ~ user", user)
+      localStorage.setItem('accessToken', token);
+      console.log("🚀 ~ file: index.jsx ~ line 26 ~ handleSubmit ~ localStorage", localStorage)
+      navigate('/', { replace: true });
+
     } catch (error) {
       console.log(error);
     }

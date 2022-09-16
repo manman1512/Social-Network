@@ -22,7 +22,8 @@ export default function Setting() {
               <img
                 className="rounded-full w-20 h-20 object-cover"
                 src="https://thuthuatphanmem.vn/uploads/2018/09/11/hinh-anh-dep-6_044127357.jpg"
-              />
+                alt=""
+                />
               <label htmlFor="profileInp">
                 <FaUserAlt className="ml-3" color="green" />
               </label>

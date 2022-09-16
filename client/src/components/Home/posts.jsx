@@ -1,16 +1,13 @@
-import React from 'react'
-import Post from './post'
+import React from 'react';
+import Post from './post';
 
-export default function Posts() {
+export default function Posts({posts}) {
   return (
     <div className="flex flex-wrap m-5">
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
+      {posts.map((post, index) => (
+        <Post post = {post} key={index}/>
+      ))}
 
-    </div>
-  )
+    </div>  
+  );
 }

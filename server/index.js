@@ -53,7 +53,7 @@ app.post("/api/upload", upload.single("file"), (req, res)=>{
 app.use('/api/auth', authRouter);
 app.use(middleware);
 app.use('/api/users', userRouter);
-app.use('/api/post', postRouter);
+app.use('/api/posts', postRouter);
 app.use('/api/categories', categoryRouter);
 
 server.listen(PORT, () => {

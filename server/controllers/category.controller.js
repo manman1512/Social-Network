@@ -16,8 +16,8 @@ module.exports = {
     // GET CATEGORY
     getCate: async (req, res) => {
         try {
-            const cats = await category.find();
-            res.status(200).json(cats)
+            const cates = await category.find();
+            res.status(200).json(cates)
         } catch (error) {
             console.log(error);
             res.status(500).json({success: false, message: "Loi server!"});

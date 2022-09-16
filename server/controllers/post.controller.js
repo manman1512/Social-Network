@@ -4,13 +4,15 @@ const post = require('../models/post.model');
 module.exports = {
   //CREATE POST
   createPost: async (req, res) => {
+    console.log(req.user);
+    req.body.username =req.user.username;
     const newPost = new post(req.body);
     try {
       const savePost = await newPost.save();
       res.status(200).json({ message: 'Tao post thanh cong!', savePost });
     } catch (error) {
       console.log(error);
-      res.status(500).json({
+      res.status(409).json({
         success: false,
         message: 'Title khong duoc trung hoac thieu Username!',
       });
@@ -71,7 +73,7 @@ module.exports = {
     }
   },
 
-  //GET POST
+  //GET POST BY ID
   getPostById: async (req, res) => {
     const { id } = req.params;
 

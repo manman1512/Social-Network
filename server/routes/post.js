@@ -9,10 +9,10 @@ const {
   getAllPost,
 } = require('../controllers/post.controller');
 
+router.get('/getAllPost', getAllPost);
+router.get('/getPostById/:id', getPostById);
 router.post('/', createPost);
 router.put('/updatePostById/:id', updatePostById);
 router.delete('/deletePostById/:id', deletePostById);
-router.get('/getPostById/:id', getPostById);
-router.get('/getAllPost/', getAllPost);
 
 module.exports = router;

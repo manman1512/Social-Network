@@ -80,5 +80,22 @@ module.exports = {
       res.status(500).json(error)
     }
     
+  },
+  // GET ME
+  getMe: async(req, res) => {
+    const {userId} = req.user;
+    try{
+      const User = await user.findById(userId);
+      if(User){
+        res.status(200).json({success: true, User})
+      } else {
+        res
+        .status(404)
+        .json({ success: false, message: 'User khong ton tai!' });
+      }
+    }catch (error) {
+      console.log(error);
+      res.status(500).json(error)
+    }
   }
 };

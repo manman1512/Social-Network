@@ -1,10 +1,7 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import '../auth.css';
-// import { useForm, FormProvider } from 'react-hook-form';
 import axiosClient from '../../axiosClient';
-// import { yupResolver } from "@hookform/resolvers/yup";
-// import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 
 
@@ -25,8 +22,6 @@ export function Input(props) {
 }
 
 export default function Register() {
-  // const methods = useForm();
-  // const onSubmit = (data) => console.log(data);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -35,7 +30,7 @@ export default function Register() {
     const password = e.target.password.value;
     const passwordConfirm = e.target.passwordConfirm.value;
 
-    console.log(username, password, passwordConfirm);
+    // console.log(username, password, passwordConfirm);
 
     try {
       const response = await axiosClient.post('/auth/register', {

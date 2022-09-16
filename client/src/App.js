@@ -7,14 +7,14 @@ import Write from './components/Write/write.jsx';
 import Setting from './components/Setting/setting.jsx'
 
 function App() {
+  // const user = false;
   return (
     <Router>
       <div className="App">
         <Routes>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/" element={<Login />} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/post/:postId" element={<Single />} />
           <Route path="/write" element={<Write />} />
           <Route path="/setting" element={<Setting />}/>
