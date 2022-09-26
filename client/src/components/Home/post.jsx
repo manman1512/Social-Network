@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 export default function Post({ post }) {
   return (
     <div className="mr-10 w-96 mt-0 mx-6 mb-10 font-mono">
-      {post.photo && (
-        <img className="w-full object-cover rounded-lg" src="{post.photo}" alt="" />
-      )}
+      {post.photo && 
+        <img className="w-full object-cover rounded-lg" src={`http://localhost:8080/images/${post.photo}`} alt="" />
+      }
       <div className="flex items-center flex-col">
         <div className="text-red-400 leading-3 mt-4 cursor-pointer">
           {post.categories.map((cate, index) => (

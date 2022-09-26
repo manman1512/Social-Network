@@ -24,7 +24,11 @@ export default function SinglePost() {
     <div className="mr-10 mx-6 mb-10 flex-auto">
       <div>
         {post.photo && (
-          <img className="rounded-xl" src={post.photo} alt="day la cai hinhf" />
+          <img
+            className="rounded-xl h-80 w-full object-cover"
+            src={`http://localhost:8080/images/${post.photo}`}
+            alt="day la cai hinhf"
+          />
         )}
       </div>
       <div className="flex items-center">

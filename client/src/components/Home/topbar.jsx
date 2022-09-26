@@ -1,21 +1,29 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { FiLogOut } from 'react-icons/fi';
 import { Link, useNavigate } from 'react-router-dom';
+import { userApi } from '../../axiosClient/api/user.js';
 import { setUser } from '../context/Actions.js';
 import { Context } from '../context/Context.js';
 
 export default function Topbar() {
   const [state, dispatch] = useContext(Context);
-  // console.log("🚀 ~ file: topbar.jsx ~ line 8 ~ Topbar ~ user", state)
-  console.log(state);
-
   const navigate = useNavigate();
-  // console.log()
   function handleClick() {
     localStorage.clear();
-    dispatch(setUser());
-    navigate('/');
+    // dispatch(setUser());
+    // navigate('/');
+    window.location.href = "/"
   }
+
+  useEffect(()=>{
+    const token = window.localStorage.getItem("accessToken");
+    if(token !== null){
+      (async ()=>{
+        const user = await userApi.getMe();
+        dispatch(setUser(user));
+      })()
+    }
+  },[])
   return (
     <div className="w-auto h-12 sticky text-neutral-500 font-bold top-0 flex items-center font-sans bg-zinc-50 px-2">
       <div className="flex-auto">

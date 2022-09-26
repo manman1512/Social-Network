@@ -10,6 +10,7 @@ const postRouter = require('./routes/post');
 const categoryRouter = require('./routes/category');
 
 const multer = require('multer');
+const path = require('path');
 
 const middleware = require('./middleware');
 
@@ -35,6 +36,9 @@ app.use(
     origin: '*',
   })
 );
+app.use(express.static('public')); 
+app.use('/images', express.static('images'));
+
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -42,19 +46,20 @@ const storage = multer.diskStorage({
   },
   filename: (req, file, cb) => {
     cb(null, req.body.name);
-  }
-})
+  },
+});
 
-const upload = multer({ storage: storage })
-app.post("/api/upload", upload.single("file"), (req, res)=>{
-  res.status(200).json("File da duoc uploaded!")
-})
+const upload = multer({ storage: storage });
+app.post('/api/upload', upload.single('file'), (req, res) => {
+  res.status(200).json('File da duoc uploaded!');
+});
 
 app.use('/api/auth', authRouter);
 app.use(middleware);
 app.use('/api/users', userRouter);
 app.use('/api/posts', postRouter);
 app.use('/api/categories', categoryRouter);
+
 
 server.listen(PORT, () => {
   console.log('Server is running on port ' + PORT);

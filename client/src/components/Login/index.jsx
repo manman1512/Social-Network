@@ -25,13 +25,7 @@ export default function Login() {
       });
       console.log(response);
       const token = response.data.accessToken;
-      const user = response.data.User;
-      if(user){
-        dispatch(setUser(user))
-      }
-      console.log("🚀 ~ file: index.jsx ~ line 25 ~ handleSubmit ~ user", user)
       localStorage.setItem('accessToken', token);
-      console.log("🚀 ~ file: index.jsx ~ line 26 ~ handleSubmit ~ localStorage", localStorage)
       navigate('/', { replace: true });
 
     } catch (error) {
@@ -61,6 +55,7 @@ export default function Login() {
               placeholder="Mật khẩu..."
               id="password"
               name="password"
+              // autocomplete="on"
               className="inp"
             />
 
