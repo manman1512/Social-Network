@@ -12,18 +12,18 @@ export default function Topbar() {
     localStorage.clear();
     // dispatch(setUser());
     // navigate('/');
-    window.location.href = "/"
+    window.location.href = '/';
   }
 
-  useEffect(()=>{
-    const token = window.localStorage.getItem("accessToken");
-    if(token !== null){
-      (async ()=>{
+  useEffect(() => {
+    const token = window.localStorage.getItem('accessToken');
+    if (token !== null) {
+      (async () => {
         const user = await userApi.getMe();
         dispatch(setUser(user));
-      })()
+      })();
     }
-  },[])
+  }, []);
   return (
     <div className="w-auto h-12 sticky text-neutral-500 font-bold top-0 flex items-center font-sans bg-zinc-50 px-2">
       <div className="flex-auto">
