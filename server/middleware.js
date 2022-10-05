@@ -11,9 +11,9 @@ module.exports = (req, res, next) => {
     return next();
   }else{
     if (authorization) {
-      console.log("🚀 ~ file: middleware.js ~ line 14 ~ authorization", authorization)
+      // console.log("🚀 ~ file: middleware.js ~ line 14 ~ authorization", authorization)
       const token = authorization.split(" ")[1];
-      console.log("🚀 ~ file: middleware.js ~ line 8 ~ token", token)
+      // console.log("🚀 ~ file: middleware.js ~ line 8 ~ token", token)
       try {
         req.user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
         // [afsmnf,fsfnafnj374]

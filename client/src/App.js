@@ -3,14 +3,14 @@ import Register from './components/Register';
 import Login from './components/Login';
 import Home from './components/Home/home.jsx';
 import Single from './components/Single/single.jsx';
-import Write from './components/Write/write.jsx';
+import Write from './components/Write/ReviewArticle.jsx';
 import Setting from './components/Setting/setting.jsx'
 
 function App() {
   // const user = false;
   return (
     <Router>
-      <div className="App">
+      <div className="App h-screen">
         <Routes>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />

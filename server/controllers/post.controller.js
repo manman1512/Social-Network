@@ -24,7 +24,7 @@ module.exports = {
     const { id } = req.params;
     try {
       const Post = await post.findById(id);
-      if (Post.username === req.body.username) {
+      if (Post.username === req.user.username) {
         try {
           const updatePost = await post.findByIdAndUpdate(
             id,
@@ -54,7 +54,8 @@ module.exports = {
 
     try {
       const Post = await post.findById(id);
-      if (Post.username === req.body.username) {
+      console.log("🚀 ~ file: post.controller.js ~ line 57 ~ updatePostById: ~ Post", Post)
+      if (Post.username === req.user.username) {
         try {
           await Post.delete();
           res.status(200).json({

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Component } from 'react';
 
 import Topbar from '../Home/topbar';
@@ -7,11 +7,11 @@ import { useState } from 'react';
 import axiosClient from '../../axiosClient/index.js';
 import { Context } from '../context/Context.js';
 import { useNavigate } from 'react-router-dom';
-// import Write from './index';
-
 import CreateArticle from './CreateArticle';
+import { userApi } from '../../axiosClient/api/user';
+import { setUser } from '../context/Actions';
 
-export default function AddWrite() {
+export default function Write() {
   const [title, setTitle] = useState('');
   const [desc, setDesc] = useState('');
   const [file, setFile] = useState(null);
@@ -85,21 +85,24 @@ export default function AddWrite() {
 
   //   // console.log(data)
   // };
+  useEffect(() => {
+    const token = window.localStorage.getItem('accessToken');
+    if (token !== null) {
+      (async () => {
+        const user = await userApi.getMe();
+        dispatch(setUser(user));
+      })();
+    }
+  }, []);
 
   return (
     <div>
+      <Topbar />
       {uploading ? (
         <div>Uploading</div>
       ) : (
-        <div className="pt-2">
-          {file && (
-            <img
-              // className="h-60 w-4/5 rounded-xl object-none"
-              className="rounded-xl object-scale-down h-60 w-96"
-              src={window.URL.createObjectURL(file)}
-              alt=""
-            />
-          )}
+        <div className="">
+          
           <form onSubmit={handleSubmit}>
             <div className="flex items-center">
               <label htmlFor="fileInp">
@@ -127,17 +130,34 @@ export default function AddWrite() {
                 onChange={(e) => setTitle(e.target.value)}
               />
             </div>
-
-
             <div>
-              <React.Fragment>
-                <div className="flex h-[calc(100%-3rem)]">
-                  <CreateArticle />
-                  <div className="basis-1/2 bg-yellow-100"></div>
+              {
+                //   <textarea
+                //   id="desc"
+                //   name="desc"
+                //   placeholder="Câu chuyện của bạn..."
+                //   className=" text-xl w-4/5 bg-slate-100 rounded-xl p-4 outline-none text-slate-400"
+                //   onChange={(e) => setDesc(e.target.value)}
+                // ></textarea>
+              }
+              <React.Fragment >
+                <div className="flex h-[calc(100%-3rem)]" >
+                  <CreateArticle onChange={(e) => setDesc(e.target.value)}/>
+                  <div className="basis-1/2 bg-yellow-100">
+                  {file && (
+                    <img
+                      // className="h-60 w-4/5 rounded-xl object-none"
+                      className="rounded-xl object-scale-down h-60 w-96"
+                      src={window.URL.createObjectURL(file)}
+                      alt=""
+                    />
+                  )}
+                    <p onChange={(e) => setTitle(e.target.value)}></p>
+
+                  </div>
                 </div>
               </React.Fragment>
             </div>
-
             <button
               className="position cursor-pointer bg-lime-700 rounded-md p-1 text-white mt-5"
               type="submit"
