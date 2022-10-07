@@ -53,11 +53,13 @@ export default function Topbar() {
 
       {state.user ? (
         <div className="flex items-center justify-center flex-initial">
-          <img
-            className="w-10 h-10 rounded-full object-cover"
-            src={state.user ? state.user.profilePic : ''}
-            alt=""
-          />
+          <Link to="../Setting">
+            <img
+              className="w-10 h-10 rounded-full object-cover cursor-pointer"
+              src={state.user ? state.user.profilePic : ''}
+              alt=""
+            />
+          </Link>
           <FiLogOut
             size="1.2rem"
             className="m-4 cursor-pointer hover:text-lime-500"
