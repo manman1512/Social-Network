@@ -1,7 +1,7 @@
 import axios from "axios";
 import queryString from "query-string";
-
-const url = "http://localhost:8080/api"
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+const url = `${SERVER_URL}/api`;
 const axiosClient = axios.create({ 
     baseURL: url,
     headers:{

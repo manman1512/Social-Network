@@ -8,6 +8,9 @@ const userSchema = new Schema(
       require: true,
       unique: true,
     },
+    displayName: {
+      type: String
+    },
     password: {
       type: String,
       require: true,
@@ -24,8 +27,19 @@ const userSchema = new Schema(
       type: Date,
       default: Date.now,
     },
+    articles:[
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Article',
+      }
+    ],
+    images:[
+      {
+        type: String,
+      }
+    ]
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model('users', userSchema);
+module.exports = mongoose.model('User', userSchema);

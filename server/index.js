@@ -13,6 +13,7 @@ const multer = require('multer');
 const path = require('path');
 
 const middleware = require('./middleware');
+const userModel = require('./models/user.model');
 
 const app = express();
 const server = http.createServer(app);
@@ -45,17 +46,41 @@ const storage = multer.diskStorage({
     cb(null, 'images');
   },
   filename: (req, file, cb) => {
-    cb(null, req.body.name);
+    cb(null, req.body.name)
+
+
   },
 });
 
 const upload = multer({ storage: storage });
-app.post('/api/upload', upload.single('file'), (req, res) => {
-  res.status(200).json('File da duoc uploaded!');
-});
+
 
 app.use('/api/auth', authRouter);
 app.use(middleware);
+app.post('/api/upload', upload.single('file'), async (req, res) => {
+  try{
+    const {_id} = req.user;
+    const {name} = req.body;
+    const user = await userModel.findById(_id);
+    if(user){
+      user.images.push(name);
+      await user.save();
+      res.status(200).json({success: true, image: name})
+    }
+    else{
+      res
+      .status(404)
+      .json({ success: false, message: 'User khong ton tai!' });
+    }
+  
+  }catch(error){
+    console.log(error);
+    res.status(500).json(error)
+  }
+  
+
+  
+});
 app.use('/api/users', userRouter);
 app.use('/api/posts', postRouter);
 app.use('/api/categories', categoryRouter);

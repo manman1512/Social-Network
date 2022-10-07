@@ -15,17 +15,13 @@ export default function Topbar() {
     window.location.href = '/';
   }
 
-  useEffect(() => {
-    const token = window.localStorage.getItem('accessToken');
-    if (token !== null) {
-      (async () => {
-        const user = await userApi.getMe();
-        dispatch(setUser(user));
-      })();
-    }
-  }, []);
+
   return (
-    <div className="w-auto h-12 sticky text-neutral-500 font-bold top-0 flex items-center font-sans bg-zinc-50 px-2">
+    <div className="w-auto h-12 sticky text-neutral-500 font-bold top-0 flex items-center font-sans bg-zinc-50 px-2 z-[99999]"
+    style={{
+      boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px"
+    }}
+    >
       <div className="flex-auto">
         <ul className="flex justify-initial">
           <li className="m-5">
