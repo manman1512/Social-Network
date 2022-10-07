@@ -10,13 +10,13 @@ import { Link } from 'react-router-dom';
 export default function Sidebar() {
   const [cates, setCates] = useState([]);
 
-  useEffect(() => {
-    const getCates = async () => {
-      const res = await axiosClient.get('/categories/');
-      setCates(res.data);
-    };
-    getCates();
-  }, []);
+  // useEffect(() => {
+  //   const getCates = async () => {
+  //     const res = await axiosClient.get('/categories/');
+  //     setCates(res.data);
+  //   };
+  //   getCates();
+  // }, []);
 
   return (
     <div className="pb-8 font-sans ml-auto mr-10">

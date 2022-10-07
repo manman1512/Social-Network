@@ -7,12 +7,20 @@ const categorySchema = new Schema(
       type: String,
       require: true,
     },
+    owner:{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
     createdAt: {
       type: Date,
       default: Date.now,
     },
+    view:{
+      type: Number,
+      default: 0,
+    }
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model('category', categorySchema);
+module.exports = mongoose.model('Category', categorySchema);

@@ -14,7 +14,7 @@ export default function Post({ post }) {
           ))}
         </div>
         <Link to={`/post/${post._id}`}>
-          <span className="cursor-pointer mt-2 font-bold text-2xl">
+          <span className="cursor-pointer mt-2 font-bold text-2xl line-clamp-2">
             {post.title}
           </span>
         </Link>

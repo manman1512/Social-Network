@@ -83,9 +83,9 @@ module.exports = {
   },
   // GET ME
   getMe: async(req, res) => {
-    const {userId} = req.user;
+    const {_id} = req.user;
     try{
-      const User = await user.findById(userId);
+      const User = await user.findById(_id);
       if(User){
         res.status(200).json({success: true, User})
       } else {
@@ -96,6 +96,43 @@ module.exports = {
     }catch (error) {
       console.log(error);
       res.status(500).json(error)
+    }
+  },
+  getImages: async(req,res)=>{
+    const {_id} = req.user;
+    try{
+      const User = await user.findById(_id);
+      if(User){
+        res.status(200).json({success: true, images: User.images})
+      }
+      else{
+        res
+        .status(404)
+        .json({ success: false, message: 'User khong ton tai!' });
+      }
+
+    }catch(error){
+      console.log(error);
+      res.status(500).json(error)
+    }
+  },
+  addImage: async(req,res)=>{
+    const {_id} = req.user;
+    const {image} = req.body;
+    try{
+      const user = await user.findById(_id);
+      if(user){
+        user.images.push(image);
+        await user.save();
+        res.status(200).json({success: true, image: image})
+      }else{
+        res
+        .status(404)
+        .json({ success: false, message: 'User khong ton tai!' });
+      }
+
+    }catch(error){
+      res.status(200).json(error)
     }
   }
 };

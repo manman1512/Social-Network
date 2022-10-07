@@ -1,15 +1,18 @@
 const user = require('../models/user.model');
 const post = require('../models/post.model');
+const queryString = require('query-string');
+const userModel = require('../models/user.model');
 
 module.exports = {
   //CREATE POST
   createPost: async (req, res) => {
-    console.log(req.user);
-    req.body.username =req.user.username;
+    const {_id} = req.user;
+    req.body.author = _id;
     const newPost = new post(req.body);
     try {
+      console.log(newPost);
       const savePost = await newPost.save();
-      res.status(200).json({ message: 'Tao post thanh cong!', savePost });
+      res.status(200).json({ message: 'Tao post thanh cong!', data: savePost});
     } catch (error) {
       console.log(error);
       res.status(409).json({
@@ -22,9 +25,12 @@ module.exports = {
   //UPDATE POST
   updatePostById: async (req, res) => {
     const { id } = req.params;
+    const {_id} = req.user;
     try {
       const Post = await post.findById(id);
-      if (Post.username === req.user.username) {
+
+      if (Post.author.toString() === _id) {
+
         try {
           const updatePost = await post.findByIdAndUpdate(
             id,
@@ -54,7 +60,6 @@ module.exports = {
 
     try {
       const Post = await post.findById(id);
-      console.log("🚀 ~ file: post.controller.js ~ line 57 ~ updatePostById: ~ Post", Post)
       if (Post.username === req.user.username) {
         try {
           await Post.delete();
@@ -79,7 +84,11 @@ module.exports = {
     const { id } = req.params;
 
     try {
-      const Post = await post.findById(id);
+      const Post = await post.findById(id,{
+        
+      })
+      .populate('author')
+      .populate("categories")
       res.status(200).json(Post);
     } catch (error) {
       console.log(error);
@@ -110,4 +119,18 @@ module.exports = {
       res.status(500).json(error);
     }
   },
+  getPostsByAuthor: async (req, res) => {
+    const {author} = req.query;
+    try{
+      const user = await userModel.findOne({username: author});
+      const posts = await post.find({author: user._id});
+      res.status(200).json({
+        posts: posts,
+        user: user.username,
+      });
+    }catch(error){
+          res.status(500).json(error)
+
+    }
+  }
 };

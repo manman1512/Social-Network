@@ -6,24 +6,22 @@ const postSchema = new Schema(
     title: {
       type: String,
       required: true,
-      unique: true,
-    },
-    desc: {
-      type: String,
-      required: true,
     },
     photo: {
       type: String,
       required: false,
     },
-    username: {
+    author:{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
+    content: {
       type: String,
-      required: true,
     },
-    categories: {
-      type: Array,
-      required: false,
-    },
+    categories: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category",
+    }],
     createdAt: {
       type: Date,
       default: Date.now,
@@ -32,4 +30,4 @@ const postSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model('post', postSchema);
+module.exports = mongoose.model('Article', postSchema);
