@@ -77,9 +77,30 @@ app.post('/api/upload', upload.single('file'), async (req, res) => {
     console.log(error);
     res.status(500).json(error)
   }
-  
 
+});
+
+app.post('/api/upload/avatar', upload.single('file'), async (req, res) => {
+  try{
+    const {_id} = req.user;
+    const {name} = req.body;
+    const user = await userModel.findById(_id);
+    if(user){
+      user.profilePic = name;
+      await user.save();
+      res.status(200).json({success: true, image: name})
+    }
+    else{
+      res
+      .status(404)
+      .json({ success: false, message: 'User khong ton tai!' });
+    }
   
+  }catch(error){
+    console.log(error);
+    res.status(500).json(error)
+  }
+
 });
 app.use('/api/users', userRouter);
 app.use('/api/posts', postRouter);

@@ -11,5 +11,16 @@ export const userApi ={
             throw new Error (error);
         }
         
+    },
+    updateAvatar: (formData)=>{
+        return new Promise(async (resolve,reject)=>{
+            try{
+                const response = await axiosClient.post("/upload/avatar", formData);
+                resolve(response);
+            }catch(error){
+                reject(error);
+            }
+        })
+
     }
 }

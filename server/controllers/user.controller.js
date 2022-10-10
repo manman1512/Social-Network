@@ -6,16 +6,16 @@ module.exports = {
   //UPDATE
   update: async (req, res) => {
     const { id } = req.params;
-    const { username, password } = req.body;
-
+    if(!req.body.password){
+      delete req.body.password;
+    }
     if (req.body.userId === id) {
-      // if (password) {
-      //   const hashedPass = await argon2.hash(password);
-      // }
       try {
         const updateUser = await user.findByIdAndUpdate(
           id,
-          { username: username, password: await argon2.hash(password) },
+          { 
+            ...req.body
+          },
           { new: true }
         );
 
@@ -29,7 +29,6 @@ module.exports = {
         res.status(500).json({ success: false, message: 'Loi Server!' });
       }
     } else {
-      // console.log(error);
       res
         .status(400)
         .json({

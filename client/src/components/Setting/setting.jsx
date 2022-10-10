@@ -1,28 +1,38 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Topbar from '../Home/topbar';
-import Sidebar from '../Home/sidebar';
 import { FaRegUserCircle } from 'react-icons/fa';
 import { BsFillPencilFill } from 'react-icons/bs';
 import { Context } from '../context/Context';
 import axiosClient from '../../axiosClient';
 import { userApi } from '../../axiosClient/api/user';
 import { setUser } from '../context/Actions';
+import { TiTickOutline } from 'react-icons/ti';
 
 export default function Setting() {
   const [state, dispatch] = useContext(Context);
+  const PF = process.env.REACT_APP_SERVER_URL;
 
   const [file, setFile] = useState(null);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState(state.user ? state.user.username:'');
+  const [password, setPassword] = useState("");
   const [success, setSuccess] = useState(false);
-
+  useEffect(()=>{
+    if(state.user){
+      setUsername(state.user.username)
+    }
+  },[state.user])
+  useEffect(()=>{
+    console.log(file)
+  },[file])
   const handleSubmit = async (e) => {
     e.preventDefault();
+    dispatch({ type: 'UPDATE_START' });
     const updateUser = {
       userId: state.user._id,
       username,
       password,
     };
+    // console.log("🚀 ~ file: setting.jsx ~ line 26 ~ handleSubmit ~ updateUser", updateUser)
     if (file) {
       const data = new FormData();
       const fileName = Date.now() + file.name;
@@ -30,13 +40,28 @@ export default function Setting() {
       data.append('file', file);
       updateUser.profilePic = fileName;
       try {
-        await axiosClient.post('/upload', data);
-      } catch (error) {}
+        const response = await userApi.updateAvatar(data);
+        if (response.status === 200) {
+          alert('Update avatar success');
+          // const user = await userApi.getMe();
+          // dispatch(setUser(user));
+        } else {
+          throw new Error('Update fail');
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
     try {
-      await axiosClient.put('/users/update/' + state.user._id, updateUser);
-      setSuccess(true); 
-    } catch (error) {}
+      const res = await axiosClient.put(
+        '/users/update/' + state.user._id,
+        updateUser
+      );
+      setSuccess(true);
+      dispatch({ type: 'UPDATE_SUCCESS', payload: res.data.updateUser });
+    } catch (error) {
+      dispatch({ type: 'UPDATE_FAILURE' });
+    }
   };
 
   useEffect(() => {
@@ -64,7 +89,13 @@ export default function Setting() {
               <div className="flex items-center p-3">
                 <img
                   className="rounded-full w-28 h-28 object-cover"
-                  src={state.user.profilePic}
+                  src={
+                    file
+                      ? URL.createObjectURL(file)
+                      : state.user && state.user.profilePic
+                      ? `${PF}/images/${state.user.profilePic}`
+                      : 'https://picsum.photos/40'
+                  }
                   alt=""
                 />
                 <label
@@ -81,18 +112,18 @@ export default function Setting() {
                   name="profile"
                   id="profileInp"
                   className="hidden"
-                  onchange={(e) => setFile(e.target.file[0])}
+                  onChange={(e) => setFile(e.target.files[0])}
                 />
               </div>
-              <label htmlFor="username" className="mt-3 ">
+              <label htmlFor="username" className="mt-3">
                 Tên đăng nhập
               </label>
               <input
                 onChange={(e) => setUsername(e.target.value)}
                 type="text"
-                name="username"
                 id="username"
-                placeholder={state.user.username}
+                placeholder={state.user?state.user.username:''}
+                value={username}
                 className="outline-none border-1 border border-green-400 p-1 w-1/2"
               />
               <label htmlFor="password" className="mt-3">
@@ -112,12 +143,17 @@ export default function Setting() {
                 type="submit"
               >
                 Cập nhật
-                </button>
-                {success && (
-                  <span className="text-green-500 mt-3">
-                    Tài khoản đã được cập nhật!
-                  </span>
-                )}
+              </button>
+              {success && (
+                <span className="text-green-500 mt-3 flex items-center">
+                  <div>
+                    <b>Tài khoản đã được cập nhật...</b>
+                  </div>
+                  <div className="border-2 rounded-full ml-3">
+                    <TiTickOutline size="2rem" />
+                  </div>
+                </span>
+              )}
             </div>
             <div>
               <span className="mt-3 text-red-500 text-xs cursor-pointer font-bold">

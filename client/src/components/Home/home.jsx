@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import Topbar from './topbar';
 import Header from './header';
-import Sidebar from './sidebar';
 import Posts from './posts';
 // import axiosClient from '../../axiosClient';
 // import { useState, useEffect } from 'react';
@@ -15,7 +14,6 @@ export default function Home() {
       <Header />
       <div className="flex justify-around mt-6">
         <Posts />
-        <Sidebar />
       </div>
     </div>
   );

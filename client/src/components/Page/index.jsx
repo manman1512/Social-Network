@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Topbar from '../Home/topbar';
-import Sidebar from '../Home/sidebar';
 import SinglePost from './SinglePost/singlePost';
 import SuggestionArticle from './SuggestionArticle';
 

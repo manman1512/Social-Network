@@ -8,43 +8,54 @@ import { Context } from '../context/Context.js';
 export default function Topbar() {
   const [state, dispatch] = useContext(Context);
   const navigate = useNavigate();
+  const PF = process.env.REACT_APP_SERVER_URL;
+  console.log(state.user)
   function handleClick() {
     localStorage.clear();
     // dispatch(setUser());
     // navigate('/');
     window.location.href = '/';
   }
-
-
+  useEffect(() => {
+    const token = window.localStorage.getItem('accessToken');
+    if (token !== null) {
+      (async () => {
+        const user = await userApi.getMe();
+        dispatch(setUser(user));
+      })();
+    }
+  }, []);
   return (
-    <div className="w-auto h-12 sticky text-neutral-500 font-bold top-0 flex items-center font-sans bg-zinc-50 px-2 z-[99999]"
-    style={{
-      boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px"
-    }}
+    <div
+      className="w-auto h-12 sticky text-neutral-500 font-bold top-0 flex items-center font-sans bg-zinc-50 px-2 z-[99999]"
+      style={{
+        boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
+      }}
     >
       <div className="flex-auto">
-        <ul className="flex justify-initial">
-          <li className="m-5">
+        <div className="flex">
+          <div className="m-5">
             <Link
               to="/"
               className="no-underline text-inherit hover:text-lime-500"
             >
               Trang Chủ
             </Link>
-          </li>
-          <li className="m-5">Về tôi</li>
-          <li className="m-5">Liên Hệ</li>
+          </div>
+          <div className="m-5">Về tôi</div>
+          <div className="m-5">Liên Hệ</div>
           {state.user && (
-            <li className="m-5">
+            <div className="m-5">
               <Link
                 to="/write"
                 className="no-underline text-inherit hover:text-lime-500"
               >
                 Viết Bài
               </Link>
-            </li>
+            </div>
           )}
-        </ul>
+        </div>
+
       </div>
 
       {state.user ? (
@@ -52,7 +63,7 @@ export default function Topbar() {
           <Link to="../Setting">
             <img
               className="w-10 h-10 rounded-full object-cover cursor-pointer"
-              src={state.user ? state.user.profilePic : ''}
+              src={state.user.profilePic ? `${PF}/images/${state.user.profilePic}` : 'https://picsum.photos/40'}
               alt=""
             />
           </Link>

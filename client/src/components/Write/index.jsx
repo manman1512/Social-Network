@@ -60,7 +60,7 @@ export default function Write() {
         navigate(`/post/${response.data.data._id}`);
         console.log(response);
       } catch (error) {
-        alert('Erro tao bai viet');
+        alert('Error tao bai viet');
       }
     }else if(url[1] === "update"){
       const data = {};

@@ -2,6 +2,7 @@ const user = require('../models/user.model');
 const post = require('../models/post.model');
 const queryString = require('query-string');
 const userModel = require('../models/user.model');
+const { populate } = require('../models/post.model');
 
 module.exports = {
   //CREATE POST
@@ -57,10 +58,11 @@ module.exports = {
   //DELETE POST
   deletePostById: async (req, res) => {
     const { id } = req.params;
-
+    const {_id} = req.user;
     try {
-      const Post = await post.findById(id);
-      if (Post.username === req.user.username) {
+      const Post = await post.findById(id).populate("author");
+      console.log(Post);
+      if (Post.author._id.toString() === _id) {
         try {
           await Post.delete();
           res.status(200).json({
