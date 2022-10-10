@@ -11,6 +11,10 @@ import { Context } from '../../context/Context.js';
 import postsApi from '../../../axiosClient/api/posts';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
+import { userApi } from '../../../axiosClient/api/user';
+import { setUser } from '../../context/Actions';
+import { Carousel } from 'react-responsive-carousel';
+
 
 export default function SinglePost({
   handleSetAuthor,
@@ -26,7 +30,11 @@ export default function SinglePost({
   // const [title, setTitle] = useState('');
   // const [content, setContent] = useState('');
   const [updateMode, setUpdateMode] = useState(false);
-
+  const PF = process.env.REACT_APP_SERVER_URL;
+  const banners =['https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.elle.vn%2Fthe-gioi-van-hoa%2F26-hinh-anh-dep-den-nghet-tho-du-khong-chinh-sua-photoshop&psig=AOvVaw2VlwXv0i7ZNKFUkErfyFXJ&ust=1665487760100000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCJD9x9Pp1PoCFQAAAAAdAAAAABAE',
+  ,'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.ivivu.com%2Fblog%2F2021%2F05%2Fxieu-long-voi-doi-hoa-tim-mong-mo-o-sapa%2F&psig=AOvVaw2VlwXv0i7ZNKFUkErfyFXJ&ust=1665487760100000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCJD9x9Pp1PoCFQAAAAAdAAAAABAi',
+  'https://www.google.com/url?sa=i&url=https%3A%2F%2Fthuthuatnhanh.com%2Fhinh-anh-thien-nhien-phong-canh-dep%2F&psig=AOvVaw2VlwXv0i7ZNKFUkErfyFXJ&ust=1665487760100000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCJD9x9Pp1PoCFQAAAAAdAAAAABBA']
+  
   useEffect(() => {
     const getPost = async () => {
       const res = await postsApi.getPost(path);
@@ -40,27 +48,31 @@ export default function SinglePost({
 
   const handleDelete = async () => {
     try {
-      const response =  await axiosClient.delete(`/posts/deletePostById/${post._id}`);
-      console.log(response)
-      if(response.status === 200) {
-        alert("Delete success!")
+      const response = await axiosClient.delete(
+        `/posts/deletePostById/${post._id}`
+      );
+      console.log(response);
+      if (response.status === 200) {
+        alert('Delete success!');
         navigate('/');
-      }else{
-        alert("Delete fail, check console");
+      } else {
+        alert('Delete fail, check console');
         console.log(response);
       }
     } catch (error) {
       console.log(error);
     }
   };
-  // console.log(state.user.username)
-  // console.log(post.author.username === state.user.username)
+  useEffect(() => {
+    const token = window.localStorage.getItem('accessToken');
+    if (token !== null) {
+      (async () => {
+        const user = await userApi.getMe();
+        dispatch(setUser(user));
+      })();
+    }
+  }, []);
 
-  console.log(post) 
-  // console.log(post._id) 
-
-  console.log(state)
-  console.log(state.user.username)
 
   return (
     <div className="flex-auto my-4">
@@ -92,19 +104,25 @@ export default function SinglePost({
         )
       }
 
-      <div className=" max-h-[170px] mx-auto mb-4">
-        <img
-          src="https://picsum.photos/1140"
-          alt=""
-          className="w-full h-[168px] rounded-lg "
-        />
+      <div className=" max-h-[170px] mx-auto mb-16">
+        <Carousel autoPlay infiniteLoop showArrows={false} showIndicators={false} showThumbs={false} showStatus={false} className="list-none">
+          <img src="https://thuthuatnhanh.com/wp-content/uploads/2018/07/hinh-anh-thien-nhien-phong-canh-dep-nhat.jpg" className="w[200px] h-[200px] rounded-lg"/>
+          <img src="https://picsum.photos/200" className="w[200px] h-[200px] rounded-lg"/>
+          <img src="https://picsum.photos/200" className="w[200px] h-[200px] rounded-lg"/>
+          <img src="https://picsum.photos/200" className="w[200px] h-[200px] rounded-lg"/>
+          <img src="https://picsum.photos/200" className="w[200px] h-[200px] rounded-lg"/>
+        </Carousel>
       </div>
       {post !== {} && (
-        <div className=" bg-white mx-auto flex flex-col gap-y-4">
+        <div className=" bg-white mx-auto flex flex-col gap-y-4 w-[80%]">
           {/* Author's information & Post's created */}
           <div className="flex gap-x-4 items-center">
             <img
-              src={post.author?.profilePic || 'https://picsum.photos/48'}
+              src={
+                state.user && state.user.profilePic
+                  ? `${PF}/images/${state.user.profilePic}`
+                  : 'https://picsum.photos/40'
+              }
               alt=""
               className="w-12 h-12 rounded-full"
             />

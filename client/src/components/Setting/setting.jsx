@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Topbar from '../Home/topbar';
-import { FaRegUserCircle } from 'react-icons/fa';
+import { BsFillCameraFill } from 'react-icons/bs';
 import { BsFillPencilFill } from 'react-icons/bs';
 import { Context } from '../context/Context';
 import axiosClient from '../../axiosClient';
@@ -13,17 +13,19 @@ export default function Setting() {
   const PF = process.env.REACT_APP_SERVER_URL;
 
   const [file, setFile] = useState(null);
-  const [username, setUsername] = useState(state.user ? state.user.username:'');
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState(
+    state.user ? state.user.username : ''
+  );
+  const [password, setPassword] = useState('');
   const [success, setSuccess] = useState(false);
-  useEffect(()=>{
-    if(state.user){
-      setUsername(state.user.username)
+  useEffect(() => {
+    if (state.user) {
+      setUsername(state.user.username);
     }
-  },[state.user])
-  useEffect(()=>{
-    console.log(file)
-  },[file])
+  }, [state.user]);
+  useEffect(() => {
+    console.log(file);
+  }, [file]);
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch({ type: 'UPDATE_START' });
@@ -86,9 +88,9 @@ export default function Setting() {
           </div>
           <form className="flex flex-col" onSubmit={handleSubmit}>
             <div className="flex flex-col items-center border-2 p-4 ">
-              <div className="flex items-center p-3">
+              <div className="flex items-center p-3 relative">
                 <img
-                  className="rounded-full w-28 h-28 object-cover"
+                  className="rounded-full w-28 h-28 object-cover "
                   src={
                     file
                       ? URL.createObjectURL(file)
@@ -100,12 +102,10 @@ export default function Setting() {
                 />
                 <label
                   htmlFor="profileInp"
-                  className=" border-2 bg-green-400 rounded-full m-2"
+                  className="bg-slate-400 border-4 rounded-full border-green-300 absolute 
+                    right-4 bottom-4"
                 >
-                  <FaRegUserCircle
-                    className="w-6 h-6 rounded-full"
-                    color="white"
-                  />
+                  <BsFillCameraFill size="1rem" color="F9F9F9" />
                 </label>
                 <input
                   type="file"
@@ -122,7 +122,7 @@ export default function Setting() {
                 onChange={(e) => setUsername(e.target.value)}
                 type="text"
                 id="username"
-                placeholder={state.user?state.user.username:''}
+                placeholder={state.user ? state.user.username : ''}
                 value={username}
                 className="outline-none border-1 border border-green-400 p-1 w-1/2"
               />
