@@ -4,7 +4,7 @@ import { FaCloudUploadAlt, FaTimes } from 'react-icons/fa';
 import Modal from 'react-modal';
 import utilsApi from '../../../../axiosClient/api/utlisApi';
 import ProgressBar from "@ramonak/react-progress-bar";
-import { useDebouncedCallback } from 'use-debounce';
+// import { useDebouncedCallback } from 'use-debounce';
 
 const customStyles = {
   content: {
@@ -41,7 +41,7 @@ export default function ChooseImage({ isOpen, onClose, handleOnClick }) {
   const [uploadFiles, setUploadFiles] = useState([]);
   const [progressInfo, setProgressInfo] = useState([]);
   const [images, setImages] = useState([]);
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
   useEffect(() => {
     console.log(files);
     (async () => {

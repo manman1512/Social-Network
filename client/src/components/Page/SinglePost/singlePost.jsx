@@ -29,15 +29,16 @@ export default function SinglePost({
 
   // const [title, setTitle] = useState('');
   // const [content, setContent] = useState('');
-  const [updateMode, setUpdateMode] = useState(false);
+  // const [updateMode, setUpdateMode] = useState(false);
   const PF = process.env.REACT_APP_SERVER_URL;
-  const banners =['https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.elle.vn%2Fthe-gioi-van-hoa%2F26-hinh-anh-dep-den-nghet-tho-du-khong-chinh-sua-photoshop&psig=AOvVaw2VlwXv0i7ZNKFUkErfyFXJ&ust=1665487760100000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCJD9x9Pp1PoCFQAAAAAdAAAAABAE',
-  ,'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.ivivu.com%2Fblog%2F2021%2F05%2Fxieu-long-voi-doi-hoa-tim-mong-mo-o-sapa%2F&psig=AOvVaw2VlwXv0i7ZNKFUkErfyFXJ&ust=1665487760100000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCJD9x9Pp1PoCFQAAAAAdAAAAABAi',
-  'https://www.google.com/url?sa=i&url=https%3A%2F%2Fthuthuatnhanh.com%2Fhinh-anh-thien-nhien-phong-canh-dep%2F&psig=AOvVaw2VlwXv0i7ZNKFUkErfyFXJ&ust=1665487760100000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCJD9x9Pp1PoCFQAAAAAdAAAAABBA']
+  // const banners =['https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.elle.vn%2Fthe-gioi-van-hoa%2F26-hinh-anh-dep-den-nghet-tho-du-khong-chinh-sua-photoshop&psig=AOvVaw2VlwXv0i7ZNKFUkErfyFXJ&ust=1665487760100000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCJD9x9Pp1PoCFQAAAAAdAAAAABAE',
+  // ,'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.ivivu.com%2Fblog%2F2021%2F05%2Fxieu-long-voi-doi-hoa-tim-mong-mo-o-sapa%2F&psig=AOvVaw2VlwXv0i7ZNKFUkErfyFXJ&ust=1665487760100000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCJD9x9Pp1PoCFQAAAAAdAAAAABAi',
+  // 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fthuthuatnhanh.com%2Fhinh-anh-thien-nhien-phong-canh-dep%2F&psig=AOvVaw2VlwXv0i7ZNKFUkErfyFXJ&ust=1665487760100000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCJD9x9Pp1PoCFQAAAAAdAAAAABBA']
   
   useEffect(() => {
     const getPost = async () => {
       const res = await postsApi.getPost(path);
+      console.log("🚀 ~ file: singlePost.jsx ~ line 41 ~ getPost ~ res", res)
       setPost(res.data);
       handleSetAuthor(res.data.author.username);
       handleSetId(res.data._id);
@@ -107,10 +108,11 @@ export default function SinglePost({
       <div className=" max-h-[170px] mx-auto mb-16">
         <Carousel autoPlay infiniteLoop showArrows={false} showIndicators={false} showThumbs={false} showStatus={false} className="list-none">
           <img src="https://thuthuatnhanh.com/wp-content/uploads/2018/07/hinh-anh-thien-nhien-phong-canh-dep-nhat.jpg" className="w[200px] h-[200px] rounded-lg"/>
-          <img src="https://picsum.photos/200" className="w[200px] h-[200px] rounded-lg"/>
-          <img src="https://picsum.photos/200" className="w[200px] h-[200px] rounded-lg"/>
-          <img src="https://picsum.photos/200" className="w[200px] h-[200px] rounded-lg"/>
-          <img src="https://picsum.photos/200" className="w[200px] h-[200px] rounded-lg"/>
+          <img src="https://nld.mediacdn.vn/2020/5/29/doi-hoa-tim-6-15907313455782118586731.jpg" className="w[200px] h-[200px] rounded-lg"/>
+          <img src="https://i.ytimg.com/vi/NqMS9nldyP4/maxresdefault.jpg" className="w[200px] h-[200px] rounded-lg"/>
+          <img src="https://wiki-travel.com.vn/uploads/picture/thanhnha-155021115014-1-rung-den.jpg" className="w[200px] h-[200px] rounded-lg"/>
+          <img src="https://lesgo.me/wp-content/uploads/2022/01/bai-viet5Cngo-ngang-truoc-thien-nhien-tuyet-mi-cua-sa-pa-461108165C8530078d-67d7-49e0-a145-5994d2b86ec1.jpg" className="w[200px] h-[200px] rounded-lg"/>
+          
         </Carousel>
       </div>
       {post !== {} && (

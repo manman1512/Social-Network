@@ -103,7 +103,7 @@ export default function Setting() {
                 <label
                   htmlFor="profileInp"
                   className="bg-slate-400 border-4 rounded-full border-green-300 absolute 
-                    right-4 bottom-4"
+                    right-4 bottom-4 cursor-pointer"
                 >
                   <BsFillCameraFill size="1rem" color="F9F9F9" />
                 </label>
@@ -139,7 +139,7 @@ export default function Setting() {
 
               <button
                 className=" cursor-pointer rounded-md p-1 mt-5 w-96 border-1 border 
-                border-green-400 hover:bg-green-400 bg-gray-400"
+                border-green-400 hover:bg-yellow-200 bg-green-400"
                 type="submit"
               >
                 Cập nhật

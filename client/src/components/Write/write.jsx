@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Component } from 'react';
 
-import Topbar from '../Home/topbar';
+// import Topbar from '../Home/topbar';
 import { ImFilePicture } from 'react-icons/im';
 import { useState } from 'react';
 import axiosClient from '../../axiosClient/index.js';
@@ -16,7 +16,7 @@ export default function AddWrite() {
   const [desc, setDesc] = useState('');
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState();
-  const [state, dispatch] = useContext(Context);
+  // const [state, dispatch] = useContext(Context);
   const navigate = useNavigate();
   const [uploading, setUploading] = useState(false);
 

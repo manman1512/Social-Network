@@ -44,10 +44,9 @@ export default function SuggestionArticle({ author, _id, tags }) {
   return (
     <div className="py-12">
       <div className="">
-        <b>Bai viet lien quan</b>
       </div>
       <div>
-        <b>Bai viet khac cua {user || 'User'}</b>
+        <b>Bài viết khác của {user || 'User'}</b>
         {authorArticle && authorArticle.length > 0 && (
           <Carousel
             swipeable={false}

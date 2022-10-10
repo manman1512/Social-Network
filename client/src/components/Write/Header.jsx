@@ -16,7 +16,7 @@ function Separate(){
     return <div className="w-[2px] h-full bg-gray-300"></div>
 }
 export default function Header({onChoseHeader}) {
-    const s = ["bold", "italic", ""]
+    // const s = ["bold", "italic", ""]
   return (
     <div className="w-full bg-[#f6f6f7] p-4 border flex gap-x-2">
         <Button handleOnClick={onChoseHeader} func="bold">

@@ -57,9 +57,9 @@ code {
   height: auto;
   max-height: 300px;
 }
-/* ul li {
+ul li {
   list-style: disc;
 }
 ol li {
   list-style: decimal;
-} */
+}
