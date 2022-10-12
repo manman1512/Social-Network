@@ -5,6 +5,7 @@ import Home from './components/Home/home.jsx';
 import Page from './components/Page';
 import Write from './components/Write';
 import Setting from './components/Setting/setting.jsx'
+import Personal from './components/Personal';
 import { useContext, useEffect } from 'react';
 import { userApi } from './axiosClient/api/user';
 import { setUser } from './components/context/Actions';
@@ -31,6 +32,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/post/:postId" element={<Page />} />
           <Route path="/write" element={<Write />} />
+          <Route path="/personal" element={<Personal />} />
           <Route path="/setting" element={<Setting />}/>
           <Route path="/update/:postId" element={<Write/>}/>
         </Routes>

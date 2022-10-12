@@ -2,8 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../auth.css';
 import axiosClient from '../../axiosClient';
-import { useNavigate } from "react-router-dom";
-
+import { useNavigate } from 'react-router-dom';
 
 export function Input(props) {
   const { name, id, placeholder } = props;
@@ -29,7 +28,7 @@ export default function Register() {
     const username = e.target.username.value;
     const password = e.target.password.value;
     const passwordConfirm = e.target.passwordConfirm.value;
-
+    const displayName = e.target.displayName.value;
     // console.log(username, password, passwordConfirm);
 
     try {
@@ -37,9 +36,9 @@ export default function Register() {
         username,
         password,
         passwordConfirm,
-
+        displayName
       });
-      navigate("/login", { replace: true });
+      navigate('/login', { replace: true });
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -56,7 +55,16 @@ export default function Register() {
         <form onSubmit={handleSubmit}>
           <h1 className="text-center pb-10 font-semibold text-3xl">ĐĂNG KÝ</h1>
           <div className="">
-            <Input placeholder="Tên đăng nhập..." id="username" name="username" />
+            <Input
+              placeholder="Tên hiển thị..."
+              id="displayName"
+              name="displayName"
+            />
+            <Input
+              placeholder="Tên đăng nhập..."
+              id="username"
+              name="username"
+            />
             <Input
               placeholder="Mật khẩu..."
               id="password"

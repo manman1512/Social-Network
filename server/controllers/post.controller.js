@@ -121,6 +121,8 @@ module.exports = {
       res.status(500).json(error);
     }
   },
+
+  //GET POSTS BY AUTHOR
   getPostsByAuthor: async (req, res) => {
     const {author} = req.query;
     try{

@@ -45,6 +45,10 @@ export default function Write() {
     //   setContent(content + "</br>")
     // }
   }
+  const handleClick = () =>{
+    navigate('/');
+  }
+
   const handleOnSubmit = async () => {
     if (url[1] === 'write') {
       const data = {};
@@ -174,8 +178,11 @@ export default function Write() {
             onClick={handleOnSubmit}
             className="p-2 rounded-lg border border-black"
           >
-            {url[1] === 'update' ? 'Cap nhat' : 'Xuat ban bai viet'}
+            {url[1] === 'update' ? 'Cập nhật' : 'Xuất bản bài viết'}
           </button>
+          <button className="p-2 rounded-lg border border-black" onClick={handleClick}>
+            Huỷ
+          </button>           
         </div>
         <CreateArticle
           content={content}

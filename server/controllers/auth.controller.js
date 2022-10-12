@@ -7,12 +7,12 @@ const user = require("../models/user.model");
 module.exports = {
     // REGISTER
     register: async (req, res) => {
-    const { username, password, passwordConfirm } = req.body;
+    const { username, password, passwordConfirm, displayName } = req.body;
   
-    if (!username || !password || !passwordConfirm) {
+    if (!username || !password || !passwordConfirm || !displayName) {
       return res
         .status(400)
-        .json({ success: false, message: "Thieu username hoac password!" });
+        .json({ success: false, message: "Thieu username hoac password hoac displayName!" });
     }
     try {
       const User = await user.findOne({ username });
@@ -28,7 +28,7 @@ module.exports = {
       }
       // All good
       const hashedPass = await argon2.hash(password);
-      const newUser = new user({ username, password: hashedPass });
+      const newUser = new user({ username, displayName, password: hashedPass });
       await newUser.save();
   
       // return token

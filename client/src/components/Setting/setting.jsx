@@ -13,25 +13,27 @@ export default function Setting() {
   const PF = process.env.REACT_APP_SERVER_URL;
 
   const [file, setFile] = useState(null);
-  const [username, setUsername] = useState(
-    state.user ? state.user.username : ''
+  const [displayName, setDisplayName] = useState(
+    state.user ? state.user.displayName : ''
   );
   const [password, setPassword] = useState('');
   const [success, setSuccess] = useState(false);
   useEffect(() => {
     if (state.user) {
-      setUsername(state.user.username);
+      setDisplayName(state.user.displayName);
     }
   }, [state.user]);
   useEffect(() => {
     console.log(file);
   }, [file]);
+
+  console.log(state)
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch({ type: 'UPDATE_START' });
     const updateUser = {
       userId: state.user._id,
-      username,
+      displayName,
       password,
     };
     // console.log("🚀 ~ file: setting.jsx ~ line 26 ~ handleSubmit ~ updateUser", updateUser)
@@ -115,15 +117,15 @@ export default function Setting() {
                   onChange={(e) => setFile(e.target.files[0])}
                 />
               </div>
-              <label htmlFor="username" className="mt-3">
-                Tên đăng nhập
+              <label htmlFor="displayName" className="mt-3">
+                Tên hiển thị
               </label>
               <input
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => setDisplayName(e.target.value)}
                 type="text"
-                id="username"
-                placeholder={state.user ? state.user.username : ''}
-                value={username}
+                id="displayName"
+                placeholder={state.user ? state.user.displayName : ''}
+                value={displayName}
                 className="outline-none border-1 border border-green-400 p-1 w-1/2"
               />
               <label htmlFor="password" className="mt-3">

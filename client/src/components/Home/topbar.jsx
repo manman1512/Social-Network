@@ -7,9 +7,9 @@ import { Context } from '../context/Context.js';
 
 export default function Topbar() {
   const [state, dispatch] = useContext(Context);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const PF = process.env.REACT_APP_SERVER_URL;
-  console.log(state.user)
+  console.log(state.user);
   function handleClick() {
     localStorage.clear();
     // dispatch(setUser());
@@ -42,8 +42,16 @@ export default function Topbar() {
               Trang Chủ
             </Link>
           </div>
-          <div className="m-5">Về tôi</div>
-          <div className="m-5">Liên Hệ</div>
+          {state.user && (
+            <div className="m-5">
+              <Link
+                to="/personal"
+                className="no-underline text-inherit hover:text-lime-500"
+              >
+                Bài viết cá nhân
+              </Link>
+            </div>
+          )}
           {state.user && (
             <div className="m-5">
               <Link
@@ -55,7 +63,6 @@ export default function Topbar() {
             </div>
           )}
         </div>
-
       </div>
 
       {state.user ? (
@@ -63,7 +70,11 @@ export default function Topbar() {
           <Link to="../Setting">
             <img
               className="w-10 h-10 rounded-full object-cover cursor-pointer"
-              src={state.user.profilePic ? `${PF}/images/${state.user.profilePic}` : 'https://picsum.photos/40'}
+              src={
+                state.user.profilePic
+                  ? `${PF}/images/${state.user.profilePic}`
+                  : 'https://picsum.photos/40'
+              }
               alt=""
             />
           </Link>

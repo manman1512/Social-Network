@@ -38,7 +38,6 @@ export default function SinglePost({
   useEffect(() => {
     const getPost = async () => {
       const res = await postsApi.getPost(path);
-      console.log("🚀 ~ file: singlePost.jsx ~ line 41 ~ getPost ~ res", res)
       setPost(res.data);
       handleSetAuthor(res.data.author.username);
       handleSetId(res.data._id);
@@ -46,7 +45,6 @@ export default function SinglePost({
     };
     getPost();
   }, [path]);
-
   const handleDelete = async () => {
     try {
       const response = await axiosClient.delete(
