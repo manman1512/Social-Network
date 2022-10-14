@@ -29,7 +29,8 @@ const PORT = process.env.PORT || 8080;
     console.log(error);
   }
 })();
-
+console.log(path.join(__dirname, 'images'));
+console.log(123123123123);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
@@ -37,75 +38,63 @@ app.use(
     origin: '*',
   })
 );
-app.use(express.static('public')); 
-app.use('/images', express.static('images'));
-
+app.use(express.static('public'));
+app.use('/images', express.static(path.join(__dirname, '/images')));
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'images');
+    cb(null, './images');
   },
   filename: (req, file, cb) => {
-    cb(null, req.body.name)
-
-
+    // const name = req.body.name.replaceAll(' ', '%20');
+    // console.log(name);
+    cb(null, req.body.name);
+    // req.body = name;
   },
 });
 
 const upload = multer({ storage: storage });
 
-
 app.use('/api/auth', authRouter);
 app.use(middleware);
 app.post('/api/upload', upload.single('file'), async (req, res) => {
-  try{
-    const {_id} = req.user;
-    const {name} = req.body;
+  try {
+    const { _id } = req.user;
+    const { name } = req.body;
     const user = await userModel.findById(_id);
-    if(user){
+    if (user) {
       user.images.push(name);
       await user.save();
-      res.status(200).json({success: true, image: name})
+      res.status(200).json({ success: true, image: name });
+    } else {
+      res.status(404).json({ success: false, message: 'User khong ton tai!' });
     }
-    else{
-      res
-      .status(404)
-      .json({ success: false, message: 'User khong ton tai!' });
-    }
-  
-  }catch(error){
+  } catch (error) {
     console.log(error);
-    res.status(500).json(error)
+    res.status(500).json(error);
   }
-
 });
 
 app.post('/api/upload/avatar', upload.single('file'), async (req, res) => {
-  try{
-    const {_id} = req.user;
-    const {name} = req.body;
+  try {
+    const { _id } = req.user;
+    const { name } = req.body;
     const user = await userModel.findById(_id);
-    if(user){
+    if (user) {
       user.profilePic = name;
       await user.save();
-      res.status(200).json({success: true, image: name})
+      res.status(200).json({ success: true, image: name });
+    } else {
+      res.status(404).json({ success: false, message: 'User khong ton tai!' });
     }
-    else{
-      res
-      .status(404)
-      .json({ success: false, message: 'User khong ton tai!' });
-    }
-  
-  }catch(error){
+  } catch (error) {
     console.log(error);
-    res.status(500).json(error)
+    res.status(500).json(error);
   }
-
 });
 app.use('/api/users', userRouter);
 app.use('/api/posts', postRouter);
 app.use('/api/categories', categoryRouter);
-
 
 server.listen(PORT, () => {
   console.log('Server is running on port ' + PORT);

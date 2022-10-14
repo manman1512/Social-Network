@@ -16,5 +16,4 @@ router.post('/', createPost);
 router.patch('/updatePostById/:id', updatePostById);
 router.delete('/deletePostById/:id', deletePostById);
 router.get("/getPostsByAuthor", getPostsByAuthor)
-
 module.exports = router;

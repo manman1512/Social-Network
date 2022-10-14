@@ -124,15 +124,20 @@ module.exports = {
 
   //GET POSTS BY AUTHOR
   getPostsByAuthor: async (req, res) => {
+    console.log("Man an cut")
     const {author} = req.query;
+    console.log(req.query);
+    console.log(author);
     try{
       const user = await userModel.findOne({username: author});
+      console.log(user);
       const posts = await post.find({author: user._id});
       res.status(200).json({
         posts: posts,
         user: user.username,
       });
     }catch(error){
+      console.log(error);
           res.status(500).json(error)
 
     }
