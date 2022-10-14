@@ -1,3 +1,4 @@
+import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Register from './components/Register';
 import Login from './components/Login';
@@ -32,7 +33,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/post/:postId" element={<Page />} />
           <Route path="/write" element={<Write />} />
-          <Route path="/personal" element={<Personal />} />
+          <Route path="/:username/posts" element={<Personal />} />
           <Route path="/setting" element={<Setting />}/>
           <Route path="/update/:postId" element={<Write/>}/>
         </Routes>

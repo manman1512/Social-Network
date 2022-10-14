@@ -45,7 +45,7 @@ export default function Topbar() {
           {state.user && (
             <div className="m-5">
               <Link
-                to="/personal"
+                to={`/${state.user.username}/posts`}
                 className="no-underline text-inherit hover:text-lime-500"
               >
                 Bài viết cá nhân

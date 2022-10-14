@@ -6,14 +6,13 @@ import Post from '../Home/post';
 
 export default function Posts() {
   const [posts, setPosts] = useState(null);
-  // const { author } = useLocation();
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const res = await axiosClient.get('/posts/getPostsByAuthor' + author);
-      setPosts(res.data);
-    };
-    fetchPosts();
-  }, [author]);
+  // useEffect(() => {
+  //   const fetchPosts = async () => {
+  //     const res = await axiosClient.get('/posts/getPostsByAuthor' + author);
+  //     setPosts(res.data);
+  //   };
+  //   fetchPosts();
+  // }, [author]);
   if(posts){
    return  <div className="flex flex-wrap m-5">
     {posts.map((post, index) => (

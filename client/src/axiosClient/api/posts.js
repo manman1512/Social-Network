@@ -10,8 +10,9 @@ const postsApi = {
     updatePost: async (_id,data) => {
         return await axiosClient.patch('/posts/updatePostById/' + _id, data);
     },
-    getPostByAuthor: async (author, displayName)=>{
-        return await axiosClient.get("/posts/getPostsByAuthor", {params: {author, displayName}});
+    getPostByAuthor: async (author)=>{
+        console.log(author)
+        return await axiosClient.get("/posts/getPostsByAuthor", {params: {author}});
     }
 }
 export default postsApi;

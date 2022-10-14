@@ -18,10 +18,13 @@ export default function Write() {
   const [onLoadingTags, setOnLoadingTags] = useState(false);
   const [suggestTags, setSuggestTags] = useState([]);
   const navigate = useNavigate();
+
+
   const debounced = useDebouncedCallback(async (value) => {
     const response = await categoriesApi.getByName(value);
     setSuggestTags(response.data);
     setOnLoadingTags(false);
+    console.log(response);
   }, 200);
   useEffect(() => {
     if (tag.length === 0) {
@@ -40,14 +43,16 @@ export default function Write() {
       }
     })();
   }, [tag]);
-  const onEnterPress = (e)=>{
+  const onEnterPress = (e) => {
     // if(e.code === "Enter") {
     //   setContent(content + "</br>")
     // }
-  }
-  const handleClick = () =>{
+  };
+  const handleClick = async () => {
+    // const res = await postsApi.getPost(url)
     navigate('/');
-  }
+    // console.log(res);
+  };
 
   const handleOnSubmit = async () => {
     if (url[1] === 'write') {
@@ -66,7 +71,7 @@ export default function Write() {
       } catch (error) {
         alert('Error tao bai viet');
       }
-    }else if(url[1] === "update"){
+    } else if (url[1] === 'update') {
       const data = {};
       data.title = title;
       data.content = content;
@@ -76,7 +81,7 @@ export default function Write() {
       });
       try {
         console.log(url);
-        const response = await postsApi.updatePost(url[2],data);
+        const response = await postsApi.updatePost(url[2], data);
         alert('Update thanh cong');
         navigate(`/post/${url[2]}`);
       } catch (error) {
@@ -94,16 +99,19 @@ export default function Write() {
         setTitle(post.data.title);
         setContent(post.data.content);
         setTags(post.data.categories);
-      }else{
-        setContent("");
-        setTitle("");
+      } else {
+        setContent('');
+        setTitle('');
         setTags([]);
       }
     })();
   }, [location]);
   const handleOnClick = (image) => {
-    setContent(content + `<img src="${process.env.REACT_APP_SERVER_URL}/images/${image}" alt="${image}" style="max-height: 500px" class="mx-auto my-4"/>`);
-  }
+    setContent(
+      content +
+        `<img style="max-height: 500px" class='mx-auto my-4' src="${process.env.REACT_APP_SERVER_URL}/images/${image}" alt="${image}"/>`
+    );
+  };
   return (
     <React.Fragment>
       <Topbar />
@@ -126,6 +134,7 @@ export default function Write() {
                 <button
                   className="rounded-full bg-none hover:bg-gray-300 w-4 h-4 flex justify-center items-center p-1 hover:text-black"
                   onClick={() => {
+                    console.log(tags);
                     setTags(tags.filter((item1) => item1._id !== item._id));
                   }}
                 >
@@ -180,9 +189,12 @@ export default function Write() {
           >
             {url[1] === 'update' ? 'Cập nhật' : 'Xuất bản bài viết'}
           </button>
-          <button className="p-2 rounded-lg border border-black" onClick={handleClick}>
-            Huỷ
-          </button>           
+          <button
+            className="p-2 rounded-lg border border-black"
+            onClick={handleClick}
+          >
+            Hủy
+          </button>
         </div>
         <CreateArticle
           content={content}
