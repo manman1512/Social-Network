@@ -58,7 +58,8 @@ module.exports = {
           return res
           .status(400)
           .json({ succes: false, mesage: 'Username hoac Passwowd khong dung!' });
-          
+      console.log(password);
+      console.log(User.password)
       const passswordValid = await argon2.verify(User.password, password); //verify -> kiem chung
   
       if (!passswordValid)

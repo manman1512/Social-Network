@@ -4,6 +4,9 @@ import '../auth.css';
 import axiosClient from '../../axiosClient';
 import { useNavigate } from 'react-router-dom';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export function Input(props) {
   const { name, id, placeholder } = props;
 
@@ -36,9 +39,22 @@ export default function Register() {
         username,
         password,
         passwordConfirm,
-        displayName
+        displayName,
       });
-      navigate('/login', { replace: true });
+
+      toast.success('Đăng nhập thành công!', {
+        position: 'top-right',
+        autoClose: 500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+        onClose: () => {
+          navigate('/login', { replace: true });
+        },
+      });
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -84,6 +100,8 @@ export default function Register() {
             >
               Đăng ký
             </button>
+            <ToastContainer />
+
             <div className="pt-11 font-mono">
               <span>Bạn đã có tài khoản?</span>
               <Link to="/login" className="hover:text-blue-500 ml-2">

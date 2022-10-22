@@ -8,6 +8,9 @@ import { userApi } from '../../axiosClient/api/user';
 import { setUser } from '../context/Actions';
 import { TiTickOutline } from 'react-icons/ti';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export default function Setting() {
   const [state, dispatch] = useContext(Context);
   const PF = process.env.REACT_APP_SERVER_URL;
@@ -17,7 +20,7 @@ export default function Setting() {
     state.user ? state.user.displayName : ''
   );
   const [password, setPassword] = useState('');
-  const [success, setSuccess] = useState(false);
+  // const [, setSuccess] = useState(false);
   useEffect(() => {
     if (state.user) {
       setDisplayName(state.user.displayName);
@@ -27,7 +30,7 @@ export default function Setting() {
     console.log(file);
   }, [file]);
 
-  console.log(state)
+  console.log(state);
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch({ type: 'UPDATE_START' });
@@ -36,7 +39,7 @@ export default function Setting() {
       displayName,
       password,
     };
-    // console.log("🚀 ~ file: setting.jsx ~ line 26 ~ handleSubmit ~ updateUser", updateUser)
+    // console.log(password)
     if (file) {
       const data = new FormData();
       const fileName = Date.now() + file.name;
@@ -46,9 +49,16 @@ export default function Setting() {
       try {
         const response = await userApi.updateAvatar(data);
         if (response.status === 200) {
-          alert('Update avatar success');
-          // const user = await userApi.getMe();
-          // dispatch(setUser(user));
+          toast.success('Cập nhật thành công!', {
+            position: 'top-right',
+            autoClose: 500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'colored',
+          });
         } else {
           throw new Error('Update fail');
         }
@@ -61,9 +71,11 @@ export default function Setting() {
         '/users/update/' + state.user._id,
         updateUser
       );
-      setSuccess(true);
+      console.log(res)
+      // setSuccess(true);
       dispatch({ type: 'UPDATE_SUCCESS', payload: res.data.updateUser });
     } catch (error) {
+      console.log(error)
       dispatch({ type: 'UPDATE_FAILURE' });
     }
   };
@@ -102,6 +114,8 @@ export default function Setting() {
                   }
                   alt=""
                 />
+                <ToastContainer className="mt-9" />
+
                 <label
                   htmlFor="profileInp"
                   className="bg-slate-400 border-4 rounded-full border-green-300 absolute 
@@ -146,7 +160,7 @@ export default function Setting() {
               >
                 Cập nhật
               </button>
-              {success && (
+              {/* {success && (
                 <span className="text-green-500 mt-3 flex items-center">
                   <div>
                     <b>Tài khoản đã được cập nhật...</b>
@@ -155,7 +169,7 @@ export default function Setting() {
                     <TiTickOutline size="2rem" />
                   </div>
                 </span>
-              )}
+              )} */}
             </div>
             <div>
               <span className="mt-3 text-red-500 text-xs cursor-pointer font-bold">

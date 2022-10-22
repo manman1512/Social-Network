@@ -8,6 +8,10 @@ import { useDebouncedCallback } from 'use-debounce';
 import categoriesApi from '../../axiosClient/api/categories';
 import postsApi from '../../axiosClient/api/posts';
 import { useLocation, useNavigate } from 'react-router-dom';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export default function Write() {
   const location = useLocation();
   const url = location.pathname.split('/');
@@ -18,7 +22,6 @@ export default function Write() {
   const [onLoadingTags, setOnLoadingTags] = useState(false);
   const [suggestTags, setSuggestTags] = useState([]);
   const navigate = useNavigate();
-
 
   const debounced = useDebouncedCallback(async (value) => {
     const response = await categoriesApi.getByName(value);
@@ -65,11 +68,29 @@ export default function Write() {
       });
       try {
         const response = await postsApi.cratePost(data);
-        alert('Tao thanh cong');
+        toast.success('Đăng bài viết thành công!', {
+          position: 'top-right',
+          autoClose: 500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        });
         navigate(`/post/${response.data.data._id}`);
         console.log(response);
       } catch (error) {
-        alert('Error tao bai viet');
+        toast.error('Đăng bài viết thất bại!', {
+          position: 'top-right',
+          autoClose: 500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        });
       }
     } else if (url[1] === 'update') {
       const data = {};
@@ -160,7 +181,10 @@ export default function Write() {
                 }}
               />
               {tag.length > 0 && (
-                <div className="absolute w-[99%] bg-white min-h-[70px] left-1/2 -translate-x-1/2 translate-y-6 suggestion flex flex-col gap-y-4 py-2 z-[100]">
+                <div
+                  className="absolute w-[99%] bg-white min-h-[70px] left-1/2 -translate-x-1/2
+                 translate-y-6 suggestion flex flex-col gap-y-4 py-2 z-[100]"
+                >
                   {onLoadingTags === true && suggestTags.length === 0 ? (
                     <p className="text-black">Loading</p>
                   ) : (
@@ -187,14 +211,17 @@ export default function Write() {
             onClick={handleOnSubmit}
             className="p-2 rounded-lg border border-black"
           >
-            {url[1] === 'update' ? 'Cập nhật' : 'Xuất bản bài viết'}
+            {url[1] === 'update' ? 'Cập nhật' : 'Đăng bài viết'}
           </button>
+          <ToastContainer className="mt-9"/>
+
           <button
             className="p-2 rounded-lg border border-black"
             onClick={handleClick}
           >
             Hủy
           </button>
+          
         </div>
         <CreateArticle
           content={content}

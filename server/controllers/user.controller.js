@@ -6,27 +6,46 @@ module.exports = {
   //UPDATE
   update: async (req, res) => {
     const { id } = req.params;
+    const {password, displayName} = req.body;
     if(!req.body.password){
       delete req.body.password;
     }
     if (req.body.userId === id) {
-      try {
+      if(password===""){
         const updateUser = await user.findByIdAndUpdate(
           id,
           { 
-            ...req.body
+            // password: hashedPass,
+            displayName
           },
           { new: true }
         );
-
         res.status(200).json({
           success: 'true',
           message: 'Cap nhat thanh cong!',
           updateUser,
         });
-      } catch (error) {
-        console.log(error);
-        res.status(500).json({ success: false, message: 'Loi Server!' });
+      } else{
+        try {
+          const hashedPass = await argon2.hash(password);
+          const updateUser = await user.findByIdAndUpdate(
+            id,
+            { 
+              password: hashedPass,
+              displayName
+            },
+            { new: true }
+          );
+  
+          res.status(200).json({
+            success: 'true',
+            message: 'Cap nhat thanh cong!',
+            updateUser,
+          });
+        } catch (error) {
+          console.log(error);
+          res.status(500).json({ success: false, message: 'Loi Server!' });
+        }
       }
     } else {
       res
