@@ -9,7 +9,7 @@ import { setUser } from '../context/Actions';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useLocation } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 export default function Setting() {
   const [state, dispatch] = useContext(Context);
@@ -20,8 +20,11 @@ export default function Setting() {
     state.user ? state.user.displayName : ''
   );
   const [password, setPassword] = useState('');
-  const location = useLocation();
-  console.log(location)
+  // const location = useLocation();
+  const navigate = useNavigate();
+  const [modal, setModal] = useState(false);
+
+  // console.log(location)
 
   // const [, setSuccess] = useState(false);
   useEffect(() => {
@@ -93,38 +96,47 @@ export default function Setting() {
     }
   };
 
-  const handleClick = async (e) =>{   //xoa tai khoan
+  // XOA TAI KHOAN
+  const handleDelete = async (e) => {
     e.preventDefault();
     try {
       const response = await axiosClient.delete(
-        '/users/deleteById/'+ state.user._id
+        '/users/deleteById/' + state.user._id
       );
-      // console.log(response);
-      console.log(state.user._id === '634e9451cff102520c0c1f04')
-      // console.log(state.user._id === '634e94fbcff102520c0c1f0c')
-      // if (response.status === 200) {
-      //   toast.success('Xóa bài viết thành công!', {
-      //     position: 'top-right',
-      //     autoClose: 500,
-      //     hideProgressBar: false,
-      //     closeOnClick: true,
-      //     pauseOnHover: true,
-      //     draggable: true,
-      //     progress: undefined,
-      //     theme: 'colored',
-      //     onClose: () => {
-      //       navigate('/');
-      //     },
-      //   });
-      // } else {
-      //   alert('Delete fail, check console');
-      //   console.log(response);
-      // }
+      // console.log(state.user._id);
+      if (response.status === 200) {
+        toast.success('Xóa Tài khoản thành công!', {
+          position: 'top-right',
+          autoClose: 500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+          onClose: () => {
+            navigate('/');
+          },
+        });
+      } else {
+        alert('Delete fail, check console');
+        console.log(response);
+      }
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
+  const handleOut = () => {
+    // const res = await postsApi.getPost(url)
+    navigate('/setting');
+    setModal(false)
+    // console.log(res);
+  };
+
+  const handleModal = () => {
+    setModal(true);
+  };
   useEffect(() => {
     const token = window.localStorage.getItem('accessToken');
     if (token !== null) {
@@ -134,8 +146,6 @@ export default function Setting() {
       })();
     }
   }, []);
-
-  
 
   return (
     <div>
@@ -190,8 +200,8 @@ export default function Setting() {
                   className="outline-none border-1 border border-[#9CA3AF] rounded-md p-1 w-1/2"
                 />
               </div>
-              <div className='mt-3'>
-                <label htmlFor="password" className="mt-3 mr-7 "	>
+              <div className="mt-3">
+                <label htmlFor="password" className="mt-3 mr-7 ">
                   Mật khẩu
                 </label>
                 <input
@@ -199,31 +209,57 @@ export default function Setting() {
                   type="password"
                   name="password"
                   id="password"
-                  placeholder='Nhập mật khẩu mới..'
+                  placeholder="Nhập mật khẩu mới.."
                   className="outline-none border-1 border border-[#9CA3AF] rounded-md p-1 w-1/2"
                 />
               </div>
 
               <button
                 className=" cursor-pointer rounded-md p-1 mt-5 w-96 border bg-[#F5F5F6]
-                border-black hover:bg-slate-200"
-                p-2 rounded-lg border border-black 
+                border-black hover:bg-blue-300 active:bg-blue-200"
+                p-2
+                rounded-lg
+                border
+                border-black
                 type="submit"
               >
                 Cập nhật
               </button>
               <ToastContainer className="mt-9" />
             </div>
-            <div>
-              <span 
-                className="mt-3 text-red-500 text-xs cursor-pointer font-bold"
-                onClick={handleClick}
-              >  
-                Xoá tài khoản
-              </span>
-            </div>
           </form>
+          <div>
+            <span
+              className="mt-3 text-red-500 text-xs cursor-pointer font-bold
+               hover:text-red-400"
+              onClick={handleModal}
+            >
+              Xoá tài khoản
+            </span>
+          </div>
+          {modal && (
+            <div>
+              <p>Bạn có chắc muốn xóa tài khoản?</p>
+              <div className="">
+                <button
+                  className="bg-blue-400 p-1 px-4 rounded-md border border-gray-400 
+                  hover:bg-blue-300 active:bg-blue-200 mr-8"
+                  onClick={handleDelete}
+                >
+                  Có
+                </button>
+                <button
+                  className="bg-blue-400 p-1 px-4 rounded-md border border-gray-400 
+                  hover:bg-blue-300 active:bg-blue-200"
+                  onClick={handleOut}
+                >
+                  Không
+                </button>
+              </div>
+            </div>
+          )}
         </div>
+        <div></div>
       </div>
     </div>
   );

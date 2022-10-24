@@ -46,7 +46,7 @@ export default function Tags() {
               }}
               type="text"
               className="w-full outline-none text-lg"
-              placeholder="Them tag"
+              placeholder="Thêm tag..."
             />
             <button
               onClick={handleAddTag}
@@ -54,7 +54,7 @@ export default function Tags() {
             active:bg-blue-200
             "
             >
-              Them
+              Thêm
             </button>
           </div>
           {

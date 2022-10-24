@@ -4,8 +4,9 @@ import { Link, useParams } from 'react-router-dom';
 import Topbar from '../Home/topbar';
 // import PersonalPost from './personalPosts';
 import postsApi from '../../axiosClient/api/posts.js';
-// import { FaFacebook, FaSadCry } from 'react-icons/fa';
+import { BiAddToQueue } from 'react-icons/bi';
 import Post from '../Home/post';
+import { FaSmileBeam } from 'react-icons/fa';
 
 export default function Personal() {
   const { username } = useParams();
@@ -26,25 +27,33 @@ export default function Personal() {
       }
     })();
   }, []);
-  
+
   console.log(posts);
 
   return (
-    <div className="w-full h-full relative">
+    <div className="w-full h-full relative bg-[#F5F5F6]">
       <Topbar />
-      {
-        posts.length === 0 && <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-        <div>Bạn chưa có post nào</div>
-        <div>
-          <button className="border ">
-            <Link to="/write">Nhấn vào để tạo post</Link>
-          </button>
+      {posts.length === 0 && (
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ">
+          <div className="text-xl">
+            <div className='flex'> 
+              <p className=" mb-2 mr-1 text-2xl">Bạn chưa có Bài viết nào cả</p>
+              <FaSmileBeam color='#FF6464' className='mr-1'/>
+              <FaSmileBeam color='#FF6464'/>
+            </div>
+            <div className='ml-20'>
+              <button className="border flex items-center p-1 rounded-md border-gray-400  bg-blue-400 
+              hover:bg-blue-300 active:bg-blue-200">
+                <BiAddToQueue className="mr-2" />
+                <Link to="/write">Nhấn để tạo</Link>
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-      }
-      {
-        posts.map((post, index)=><Post post={post} key={index} />)
-      }
+      )}
+      {posts.map((post, index) => (
+        <Post post={post} key={index} />
+      ))}
     </div>
   );
 }

@@ -163,7 +163,7 @@ export default function Write() {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           type="text"
-          placeholder="Tieu de"
+          placeholder="Tiêu đề"
           className="w-full text-2xl border border-gray-400 focus:border-blue-300 outline-none p-2 rounded-md"
         />
         <div className="flex gap-4">
@@ -190,7 +190,7 @@ export default function Write() {
                 type="text"
                 className="outline-none w-full bg-transparent"
                 value={tag}
-                placeholder={'Chon the'}
+                placeholder={'Chọn thẻ'}
                 onChange={(e) => {
                   setTag(e.target.value);
                 }}
@@ -231,14 +231,14 @@ export default function Write() {
           </div>
           <button
             onClick={handleOnSubmit}
-            className="p-2 rounded-lg border border-black hover:bg-slate-200"
+            className="p-2 rounded-lg border border-black  hover:bg-blue-300 active:bg-blue-200"
           >
             {url[1] === 'update' ? 'Cập nhật' : 'Đăng bài viết'}
           </button>
           <ToastContainer className="mt-9" />
 
           <button
-            className="p-2 rounded-lg border border-black px-8 hover:bg-slate-200"
+            className="p-2 rounded-lg border border-black px-8  hover:bg-blue-300 active:bg-blue-200"
             onClick={handleClick}
           >
             Hủy

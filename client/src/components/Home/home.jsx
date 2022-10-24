@@ -12,7 +12,7 @@ export default function Home() {
     <div>
       <Topbar />
       <Header />
-      <div className="flex justify-around mt-6">
+      <div className="flex justify-around mt-6 ">
         <Posts />
       </div>
     </div>
