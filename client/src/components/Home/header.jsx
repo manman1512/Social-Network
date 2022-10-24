@@ -4,7 +4,7 @@ export default function Header() {
   return (
     <div className="mt-16">
       <div className="flex flex-col items-center  text-neutral-500">
-        <span className="absolute text-8xl top-16 font-[Casterio, Signature]">Blog</span>
+        <span className="absolute text-8xl top-16 font-['Tangerine', serif]">Blog</span>
       </div>
 
       <img
