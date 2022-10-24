@@ -77,8 +77,10 @@ export default function Write() {
           draggable: true,
           progress: undefined,
           theme: 'colored',
+          onClose: () => {
+            navigate(`/post/${response.data.data._id}`);
+          },
         });
-        navigate(`/post/${response.data.data._id}`);
         console.log(response);
       } catch (error) {
         toast.error('Đăng bài viết thất bại!', {
@@ -103,11 +105,31 @@ export default function Write() {
       try {
         console.log(url);
         const response = await postsApi.updatePost(url[2], data);
-        alert('Update thanh cong');
-        navigate(`/post/${url[2]}`);
+        toast.success('Cập nhật thành công!', {
+          position: 'top-right',
+          autoClose: 500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+          onClose: () => {
+            navigate(`/post/${url[2]}`);
+          },
+        });
       } catch (error) {
         console.log(error);
-        alert('Erro update bai viet');
+        toast.error('Cập nhật thất bại!', {
+          position: 'top-right',
+          autoClose: 500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        });
       }
     }
   };
@@ -209,19 +231,18 @@ export default function Write() {
           </div>
           <button
             onClick={handleOnSubmit}
-            className="p-2 rounded-lg border border-black"
+            className="p-2 rounded-lg border border-black hover:bg-slate-200"
           >
             {url[1] === 'update' ? 'Cập nhật' : 'Đăng bài viết'}
           </button>
-          <ToastContainer className="mt-9"/>
+          <ToastContainer className="mt-9" />
 
           <button
-            className="p-2 rounded-lg border border-black"
+            className="p-2 rounded-lg border border-black px-8 hover:bg-slate-200"
             onClick={handleClick}
           >
             Hủy
           </button>
-          
         </div>
         <CreateArticle
           content={content}

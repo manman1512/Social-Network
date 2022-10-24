@@ -5,7 +5,7 @@ import { AiFillDelete } from 'react-icons/ai';
 import { useLocation } from 'react-router-dom';
 import axiosClient from '../../../axiosClient';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { Context } from '../../context/Context.js';
 import postsApi from '../../../axiosClient/api/posts';
@@ -14,7 +14,8 @@ import rehypeRaw from 'rehype-raw';
 import { userApi } from '../../../axiosClient/api/user';
 import { setUser } from '../../context/Actions';
 import { Carousel } from 'react-responsive-carousel';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function SinglePost({
   handleSetAuthor,
@@ -25,6 +26,7 @@ export default function SinglePost({
   const [state, dispatch] = useContext(Context);
   const location = useLocation();
   const path = location.pathname.split('/')[2];
+  // console.log(location)
   const [post, setPost] = useState({});
 
   // const [title, setTitle] = useState('');
@@ -34,7 +36,7 @@ export default function SinglePost({
   // const banners =['https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.elle.vn%2Fthe-gioi-van-hoa%2F26-hinh-anh-dep-den-nghet-tho-du-khong-chinh-sua-photoshop&psig=AOvVaw2VlwXv0i7ZNKFUkErfyFXJ&ust=1665487760100000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCJD9x9Pp1PoCFQAAAAAdAAAAABAE',
   // ,'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.ivivu.com%2Fblog%2F2021%2F05%2Fxieu-long-voi-doi-hoa-tim-mong-mo-o-sapa%2F&psig=AOvVaw2VlwXv0i7ZNKFUkErfyFXJ&ust=1665487760100000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCJD9x9Pp1PoCFQAAAAAdAAAAABAi',
   // 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fthuthuatnhanh.com%2Fhinh-anh-thien-nhien-phong-canh-dep%2F&psig=AOvVaw2VlwXv0i7ZNKFUkErfyFXJ&ust=1665487760100000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCJD9x9Pp1PoCFQAAAAAdAAAAABBA']
-  
+
   useEffect(() => {
     const getPost = async () => {
       const res = await postsApi.getPost(path);
@@ -52,8 +54,19 @@ export default function SinglePost({
       );
       console.log(response);
       if (response.status === 200) {
-        alert('Delete success!');
-        navigate('/');
+        toast.success('Xóa bài viết thành công!', {
+          position: 'top-right',
+          autoClose: 500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+          onClose: () => {
+            navigate('/');
+          },
+        });
       } else {
         alert('Delete fail, check console');
         console.log(response);
@@ -71,7 +84,6 @@ export default function SinglePost({
       })();
     }
   }, []);
-
 
   return (
     <div className="flex-auto my-4">
@@ -100,17 +112,42 @@ export default function SinglePost({
           >
             <AiFillDelete />
           </button>
+          
         )
       }
+          <ToastContainer className="mt-9" />
+
 
       <div className=" max-h-[170px] mx-auto mb-16">
-        <Carousel autoPlay infiniteLoop showArrows={false} showIndicators={false} showThumbs={false} showStatus={false} className="list-none">
-          <img src="https://thuthuatnhanh.com/wp-content/uploads/2018/07/hinh-anh-thien-nhien-phong-canh-dep-nhat.jpg" className="w[200px] h-[200px] rounded-lg"/>
-          <img src="https://nld.mediacdn.vn/2020/5/29/doi-hoa-tim-6-15907313455782118586731.jpg" className="w[200px] h-[200px] rounded-lg"/>
-          <img src="https://i.ytimg.com/vi/NqMS9nldyP4/maxresdefault.jpg" className="w[200px] h-[200px] rounded-lg"/>
-          <img src="https://wiki-travel.com.vn/uploads/picture/thanhnha-155021115014-1-rung-den.jpg" className="w[200px] h-[200px] rounded-lg"/>
-          <img src="https://lesgo.me/wp-content/uploads/2022/01/bai-viet5Cngo-ngang-truoc-thien-nhien-tuyet-mi-cua-sa-pa-461108165C8530078d-67d7-49e0-a145-5994d2b86ec1.jpg" className="w[200px] h-[200px] rounded-lg"/>
-          
+        <Carousel
+          autoPlay
+          infiniteLoop
+          showArrows={false}
+          showIndicators={false}
+          showThumbs={false}
+          showStatus={false}
+          className="list-none"
+        >
+          <img
+            src="https://cdn.sforum.vn/sforum/wp-content/uploads/2022/07/2-6.jpg"
+            className="w[200px] h-[200px] rounded-lg"
+          />
+          <img
+            src="https://thuthuatnhanh.com/wp-content/uploads/2018/07/hinh-anh-thien-nhien-phong-canh-dep-nhat.jpg"
+            className="w[200px] h-[200px] rounded-lg"
+          />
+          <img
+            src="https://indotech.vn/hinh-nen-phong-canh-dep/imager_5_3682_700.jpg"
+            className="w[200px] h-[200px] rounded-lg"
+          />
+          <img
+            src="https://wiki-travel.com.vn/uploads/picture/thanhnha-155021115014-1-rung-den.jpg"
+            className="w[200px] h-[200px] rounded-lg"
+          />
+          <img
+            src="https://lesgo.me/wp-content/uploads/2022/01/bai-viet5Cngo-ngang-truoc-thien-nhien-tuyet-mi-cua-sa-pa-461108165C8530078d-67d7-49e0-a145-5994d2b86ec1.jpg"
+            className="w[200px] h-[200px] rounded-lg"
+          />
         </Carousel>
       </div>
       {post !== {} && (

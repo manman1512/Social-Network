@@ -20,7 +20,7 @@ const responsive = {
   },
 };
 export default function SuggestionArticle({ author, _id, tags }) {
-  const [relatedArticle, setRelatedArticle] = useState();
+  // const [relatedArticle, setRelatedArticle] = useState();
   const [authorArticle, setAuthorArticle] = useState();
   const [user, setUser] = useState('');
   const navigate = useNavigate();

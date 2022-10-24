@@ -60,7 +60,7 @@ module.exports = {
   //DELETE
   deleteById: async (req, res) => {
     const { id } = req.params;
-    if (req.body.userId === id) {
+    if (req.user._id === id) {
       try {
         const User = await user.findById(id);
         try {

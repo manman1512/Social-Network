@@ -12,7 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function Login() {
   const navigate = useNavigate();
-  const [state, dispatch] = useContext(Context);
+  // const [state, dispatch] = useContext(Context);
 
   const [success, setSuccess] = useState(false);
 

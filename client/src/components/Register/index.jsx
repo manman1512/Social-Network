@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../auth.css';
 import axiosClient from '../../axiosClient';
@@ -25,6 +25,8 @@ export function Input(props) {
 
 export default function Register() {
   const navigate = useNavigate();
+  const [successPass, setSuccessPass] = useState(false);
+  const [lengthPass, setLengthPass] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,30 +34,38 @@ export default function Register() {
     const password = e.target.password.value;
     const passwordConfirm = e.target.passwordConfirm.value;
     const displayName = e.target.displayName.value;
-    // console.log(username, password, passwordConfirm);
+    // console.log(password.length);
 
     try {
-      const response = await axiosClient.post('/auth/register', {
-        username,
-        password,
-        passwordConfirm,
-        displayName,
-      });
+      if(password.length <8 ){
+        setLengthPass(true)
+      }
+      else if (password !== passwordConfirm) {
+        setSuccessPass(true);
+      } else {
+        const response = await axiosClient.post('/auth/register', {
+          username,
+          password,
+          passwordConfirm,
+          displayName,
+        });
 
-      toast.success('Đăng nhập thành công!', {
-        position: 'top-right',
-        autoClose: 500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'colored',
-        onClose: () => {
-          navigate('/login', { replace: true });
-        },
-      });
-      console.log(response);
+        toast.success('Đăng ký thành công!', {
+          position: 'top-right',
+          autoClose: 500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+          onClose: () => {
+            navigate('/login', { replace: true });
+          },
+        });
+
+        console.log(response);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -93,6 +103,20 @@ export default function Register() {
               name="passwordConfirm"
               className="inp"
             />
+            {lengthPass && (
+              <span className="text-red-500 mt-3 flex ml-1">
+                <div>
+                  <b>Mật khẩu phải lớn hơn 8 ký tự!</b>
+                </div>
+              </span>
+            )}
+            {successPass && (
+              <span className="text-red-500 mt-3 flex ml-1">
+                <div>
+                  <b>Mật khẩu nhập lại không đúng!</b>
+                </div>
+              </span>
+            )}
             <button
               className="border-2 wrap-input relative w-full h-12 outline-none py-0 px-6 mt-5 
                 bg-slate-800 text-white hover:bg-slate-600"

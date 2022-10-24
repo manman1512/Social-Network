@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Topbar from './topbar';
 import Header from './header';
 import Posts from './posts';

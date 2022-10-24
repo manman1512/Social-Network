@@ -11,6 +11,7 @@ import { useContext, useEffect } from 'react';
 import { userApi } from './axiosClient/api/user';
 import { setUser } from './components/context/Actions';
 import { Context } from './components/context/Context';
+import Tags from './components/tags';
 
 function App() {
   // const user = false;
@@ -36,6 +37,8 @@ function App() {
           <Route path="/:username/posts" element={<Personal />} />
           <Route path="/setting" element={<Setting />}/>
           <Route path="/update/:postId" element={<Write/>}/>
+          <Route path="/tags" element={<Tags />}/>
+
         </Routes>
       </div>
     </Router>

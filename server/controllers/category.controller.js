@@ -4,7 +4,13 @@ const category = require('../models/category.model')
 module.exports = {
     // CREATE CATEGORY
     createCate: async (req, res) => {
-        const newCate = new category(req.body)
+        // console.log(req);
+        const {_id} = req.user;
+        const {name} = req.body;
+        const newCate = new category({
+            owner: _id,
+            name: name
+        })
         try {
             const saveCate = await newCate.save();
             res.status(200).json(saveCate)
@@ -13,7 +19,16 @@ module.exports = {
             res.status(500).json({success: false, message: "Loi server!"});
         }
     },
+    // GET CATEGORY BY USER
+    getCateByUser: async (req,res)=>{
+        const {_id} = req.params;
+        const cates = await category.find({
+            owner: _id
+        })
+        console.log(cates);
+        res.status(200).json(cates)
 
+    },
     // GET CATEGORY
     getCate: async (req, res) => {
         try {

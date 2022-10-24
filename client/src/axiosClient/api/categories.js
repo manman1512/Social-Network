@@ -5,6 +5,14 @@ const categoriesApi = {
         return await axiosClient.get(`/categories`, {params: {
             q: name
         }})
+    },
+    addTag: async (name)=>{
+        return await axiosClient.post("/categories",{
+            name: name
+        })
+    },
+    getTags: async (_id)=>{
+        return await axiosClient.get(`/categories/user/${_id}`)
     }
 }
 export default categoriesApi

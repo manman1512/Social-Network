@@ -6,10 +6,10 @@ import { Context } from '../context/Context';
 import axiosClient from '../../axiosClient';
 import { userApi } from '../../axiosClient/api/user';
 import { setUser } from '../context/Actions';
-import { TiTickOutline } from 'react-icons/ti';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useLocation } from 'react-router-dom';
 
 export default function Setting() {
   const [state, dispatch] = useContext(Context);
@@ -20,6 +20,9 @@ export default function Setting() {
     state.user ? state.user.displayName : ''
   );
   const [password, setPassword] = useState('');
+  const location = useLocation();
+  console.log(location)
+
   // const [, setSuccess] = useState(false);
   useEffect(() => {
     if (state.user) {
@@ -30,7 +33,7 @@ export default function Setting() {
     console.log(file);
   }, [file]);
 
-  console.log(state);
+  // console.log(state);
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch({ type: 'UPDATE_START' });
@@ -71,14 +74,56 @@ export default function Setting() {
         '/users/update/' + state.user._id,
         updateUser
       );
-      console.log(res)
+      console.log(res);
       // setSuccess(true);
       dispatch({ type: 'UPDATE_SUCCESS', payload: res.data.updateUser });
+      toast.success('Cập nhật thành công!', {
+        position: 'top-right',
+        autoClose: 500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
     } catch (error) {
-      console.log(error)
+      console.log(error);
       dispatch({ type: 'UPDATE_FAILURE' });
     }
   };
+
+  const handleClick = async (e) =>{   //xoa tai khoan
+    e.preventDefault();
+    try {
+      const response = await axiosClient.delete(
+        '/users/deleteById/'+ state.user._id
+      );
+      // console.log(response);
+      console.log(state.user._id === '634e9451cff102520c0c1f04')
+      // console.log(state.user._id === '634e94fbcff102520c0c1f0c')
+      // if (response.status === 200) {
+      //   toast.success('Xóa bài viết thành công!', {
+      //     position: 'top-right',
+      //     autoClose: 500,
+      //     hideProgressBar: false,
+      //     closeOnClick: true,
+      //     pauseOnHover: true,
+      //     draggable: true,
+      //     progress: undefined,
+      //     theme: 'colored',
+      //     onClose: () => {
+      //       navigate('/');
+      //     },
+      //   });
+      // } else {
+      //   alert('Delete fail, check console');
+      //   console.log(response);
+      // }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   useEffect(() => {
     const token = window.localStorage.getItem('accessToken');
@@ -89,19 +134,20 @@ export default function Setting() {
       })();
     }
   }, []);
+
+  
+
   return (
     <div>
       <Topbar />
-      <div className="mt-3">
+      <div className="mt-5">
         <div className=" mx-6 mb-10">
           <div className="flex mb-3 items-center">
             <BsFillPencilFill />
-            <span className="text-3xl ml-2 text-lime-500">
-              Cập Nhật Tài Khoản Của Bạn
-            </span>
+            <span className="text-3xl ml-2 ">Chỉnh sửa Tài Khoản</span>
           </div>
-          <form className="flex flex-col" onSubmit={handleSubmit}>
-            <div className="flex flex-col items-center border-2 p-4 ">
+          <form className="flex flex-col text-lg" onSubmit={handleSubmit}>
+            <div className="flex flex-col items-center border-2 p-4 bg-[#F5F5F6]">
               <div className="flex items-center p-3 relative">
                 <img
                   className="rounded-full w-28 h-28 object-cover "
@@ -131,48 +177,48 @@ export default function Setting() {
                   onChange={(e) => setFile(e.target.files[0])}
                 />
               </div>
-              <label htmlFor="displayName" className="mt-3">
-                Tên hiển thị
-              </label>
-              <input
-                onChange={(e) => setDisplayName(e.target.value)}
-                type="text"
-                id="displayName"
-                placeholder={state.user ? state.user.displayName : ''}
-                value={displayName}
-                className="outline-none border-1 border border-green-400 p-1 w-1/2"
-              />
-              <label htmlFor="password" className="mt-3">
-                Mật khẩu
-              </label>
-              <input
-                onChange={(e) => setPassword(e.target.value)}
-                type="password"
-                name="password"
-                id="password"
-                className="outline-none border-1 border border-green-400 p-1 w-1/2"
-              />
+              <div>
+                <label htmlFor="displayName" className="mt-3 mr-3 ">
+                  Tên hiển thị
+                </label>
+                <input
+                  onChange={(e) => setDisplayName(e.target.value)}
+                  type="text"
+                  id="displayName"
+                  placeholder={state.user ? state.user.displayName : ''}
+                  value={displayName}
+                  className="outline-none border-1 border border-[#9CA3AF] rounded-md p-1 w-1/2"
+                />
+              </div>
+              <div className='mt-3'>
+                <label htmlFor="password" className="mt-3 mr-7 "	>
+                  Mật khẩu
+                </label>
+                <input
+                  onChange={(e) => setPassword(e.target.value)}
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder='Nhập mật khẩu mới..'
+                  className="outline-none border-1 border border-[#9CA3AF] rounded-md p-1 w-1/2"
+                />
+              </div>
 
               <button
-                className=" cursor-pointer rounded-md p-1 mt-5 w-96 border-1 border 
-                border-green-400 hover:bg-yellow-200 bg-green-400"
+                className=" cursor-pointer rounded-md p-1 mt-5 w-96 border bg-[#F5F5F6]
+                border-black hover:bg-slate-200"
+                p-2 rounded-lg border border-black 
                 type="submit"
               >
                 Cập nhật
               </button>
-              {/* {success && (
-                <span className="text-green-500 mt-3 flex items-center">
-                  <div>
-                    <b>Tài khoản đã được cập nhật...</b>
-                  </div>
-                  <div className="border-2 rounded-full ml-3">
-                    <TiTickOutline size="2rem" />
-                  </div>
-                </span>
-              )} */}
+              <ToastContainer className="mt-9" />
             </div>
             <div>
-              <span className="mt-3 text-red-500 text-xs cursor-pointer font-bold">
+              <span 
+                className="mt-3 text-red-500 text-xs cursor-pointer font-bold"
+                onClick={handleClick}
+              >  
                 Xoá tài khoản
               </span>
             </div>
