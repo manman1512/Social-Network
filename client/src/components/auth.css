@@ -10,7 +10,7 @@ html {
   font-family: Roboto, sans-serif;
 }
 .container-register {
-  background-image: url(../assets/banner.jpg);
+  background-image: url(../assets/75024.jpg);
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -19,6 +19,11 @@ html {
 .wrap-input {
   display: block;
   border: 1px solid #e6e6e6;
+  margin-bottom: 10px;
+  border-style:none;
+  background-color: #F2F2F2;
+  border-radius: 4px;
+  /* font-size: 15px; */
 }
 .inp{
   border-top: none

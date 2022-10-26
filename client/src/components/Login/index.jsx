@@ -72,7 +72,7 @@ export default function Login() {
             />
 
             <button
-              className="border-2 wrap-input relative w-full h-12 outline-none py-0 px-6 mt-5 
+              className="border-2 relative w-full h-12 outline-none py-0 px-6 mt-5 
                 bg-slate-800 text-white hover:bg-slate-600"
               type="submit"
             >
@@ -89,7 +89,7 @@ export default function Login() {
             )}
             <div className="pt-11 font-mono">
               <span>Bạn chưa có tài khoản?</span>
-              <Link to="/register" className="text-blue-500 ">
+              <Link to="/register" className="text-blue-500 ml-1">
                 Đăng ký
               </Link>
             </div>

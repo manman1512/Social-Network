@@ -129,7 +129,7 @@ export default function SinglePost({
           className="list-none"
         >
           <img
-            src="https://cdn.sforum.vn/sforum/wp-content/uploads/2022/07/2-6.jpg"
+            src="https://hpconnect.vn/wp-content/uploads/2020/02/H%C3%ACnh-%E1%BA%A3nh-phong-c%E1%BA%A3nh-thi%C3%AAn-nhi%C3%AAn-31.jpg"
             className="w[200px] h-[200px] rounded-lg"
           />
           <img

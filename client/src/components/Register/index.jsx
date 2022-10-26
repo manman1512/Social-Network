@@ -15,7 +15,7 @@ export function Input(props) {
       name={name}
       id={id}
       placeholder={placeholder}
-      className="wrap-input relative w-full h-12 outline-none py-0 px-6"
+      className="wrap-input relative w-full h-12 outline-none py-0 px-6 text-lg"
       type={
         name === 'password' || name === 'passwordConfirm' ? 'password' : 'text'
       }
@@ -79,26 +79,26 @@ export default function Register() {
       {/* <FormProvider {...methods}> */}
       <div className="border-2 bg-white rounded-xl pr-14 pl-14 pb-14 pt-10">
         <form onSubmit={handleSubmit}>
-          <h1 className="text-center pb-10 font-semibold text-3xl">ĐĂNG KÝ</h1>
+          <h1 className="text-center pb-8 font-semibold text-3xl">ĐĂNG KÝ</h1>
           <div className="">
             <Input
-              placeholder="Tên hiển thị..."
+              placeholder="Tên hiển thị"
               id="displayName"
               name="displayName"
             />
             <Input
-              placeholder="Tên đăng nhập..."
+              placeholder="Tên đăng nhập"
               id="username"
               name="username"
             />
             <Input
-              placeholder="Mật khẩu..."
+              placeholder="Mật khẩu"
               id="password"
               name="password"
               className="inp"
             />
             <Input
-              placeholder="Nhập lại mật khẩu..."
+              placeholder="Nhập lại mật khẩu"
               id="passwordConfirm"
               name="passwordConfirm"
               className="inp"
@@ -118,7 +118,7 @@ export default function Register() {
               </span>
             )}
             <button
-              className="border-2 wrap-input relative w-full h-12 outline-none py-0 px-6 mt-5 
+              className="border-2  relative w-full h-12 outline-none py-0 px-6 mt-5 
                 bg-slate-800 text-white hover:bg-slate-600"
               type="submit"
             >
@@ -128,7 +128,7 @@ export default function Register() {
 
             <div className="pt-11 font-mono">
               <span>Bạn đã có tài khoản?</span>
-              <Link to="/login" className="hover:text-blue-500 ml-2">
+              <Link to="/login" className="text-blue-500 ml-1">
                 Đăng nhập
               </Link>
             </div>

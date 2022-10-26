@@ -38,8 +38,8 @@ export default function Personal() {
           <div className="text-xl">
             <div className='flex'> 
               <p className=" mb-2 mr-1 text-2xl">Bạn chưa có Bài viết nào cả</p>
-              <FaSmileBeam color='#FF6464' className='mr-1'/>
-              <FaSmileBeam color='#FF6464'/>
+              <FaSmileBeam color='#FF8787' className='mr-1'/>
+              <FaSmileBeam color='#FF8787'/>
             </div>
             <div className='ml-20'>
               <button className="border flex items-center p-1 rounded-md border-gray-400  bg-blue-400 

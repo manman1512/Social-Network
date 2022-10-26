@@ -85,7 +85,7 @@ export default function Topbar() {
       </div>
 
       {state.user ? (
-        <div className="flex items-center justify-center flex-initial group" >
+        <div className="flex items-center justify-center flex-initial group">
           {/* <Link to="../Setting"> */}
           <img
             className="w-10 h-10 rounded-full object-cover cursor-pointer"
@@ -99,21 +99,30 @@ export default function Topbar() {
           <p className="mr-3 ml-2 w-20 truncate">{state.user.displayName}</p>
           {/* </Link> */}
           <div className=" absolute invisible group-hover:visible">
-              <div className="bg-[#F0F2F5] mt-28 p-2 relative mr-3 rounded-lg ">
-                <Link to="/setting" className="ml-1 flex items-center">
-                  <AiFillSetting size="1.2rem" color="black"/>
-                  <p className="pl-2 text-black">Chỉnh sửa</p>
-                </Link>
-                <Link to="/logout" className="ml-1 flex items-center " onClick={handleClick}>
-                  <FiLogOut
-                    size="1.2rem"
-                    color="black"
-                  />
-                  <p className="pl-2 text-black">Đăng xuất</p>
-                </Link>
-                {/* </div> */}
-              </div>
+            <div className="bg-[#F0F2F5] mt-28 p-2 relative mr-3 rounded-lg ">
+              <Link to="/setting" className="ml-1 flex items-center">
+                <AiFillSetting
+                  size="1.2rem"
+                  color="black"
+                  className="hover:text-gray-400"
+                />
+                <p className="pl-2 text-black hover:text-gray-400">Chỉnh sửa</p>
+              </Link>
+              <Link
+                to="/logout"
+                className="ml-1 flex items-center "
+                onClick={handleClick}
+              >
+                <FiLogOut
+                  size="1.2rem"
+                  color="black"
+                  className="hover:text-gray-400"
+                />
+                <p className="pl-2 text-black hover:text-gray-400">Đăng xuất</p>
+              </Link>
+              {/* </div> */}
             </div>
+          </div>
         </div>
       ) : (
         <Link
