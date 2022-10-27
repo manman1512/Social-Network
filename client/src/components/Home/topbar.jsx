@@ -38,7 +38,7 @@ export default function Topbar() {
       className="w-auto h-12 sticky text-black font-bold top-0 flex items-center 
       font-sans bg-white px-2 z-[99999]"
       style={{
-        boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
+        boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"
       }}
     >
       <div className="flex-auto font-[’Roboto-Regular’,sans-serif]">

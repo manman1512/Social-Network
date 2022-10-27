@@ -38,6 +38,7 @@ export default function Login() {
         draggable: true,
         progress: undefined,
         theme: 'colored',
+        duration: 1000,
         onClose: () => {
           navigate('/', { replace: true });
         },

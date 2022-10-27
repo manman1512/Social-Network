@@ -63,3 +63,15 @@ ul li {
 ol li {
   list-style: decimal;
 }
+.tags:first-child{
+  background: #00cfe820;
+  color: #00cfe8;
+}
+.tags:not(:first-child):not(:last-child){
+  background: #7367f020;
+  color: #7367f0;
+}
+.tags:last-child:not(:first-child){
+  background: #ff000020;
+  color: #ff0000;
+}
