@@ -7,6 +7,7 @@ import Topbar from '../Home/topbar';
 
 export default function Tags() {
   const [tags, setTags] = useState([]);
+  const [postPerTag, setPostPerTag] = useState([]);
   const [tag, setTag] = useState('');
   const [state, dispatch] = useContext(Context)
   const handleAddTag = async () => {
@@ -16,7 +17,6 @@ export default function Tags() {
       tags.push(response.data);
       setTags(tags);
       setTag("")
-
     }
   };
   useEffect(()=>{
@@ -28,8 +28,32 @@ export default function Tags() {
       }
     })()
   },[state])
-  tags.sort((a,b)=> new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+  useEffect(()=>{
+    (async()=>{
+      if(tags.length > 0){
+        const response = await Promise.all(tags.map(async(tag)=>{
+          return new Promise(async(resolve, reject)=>{
+            const data = {
+            tagId: tag._id,
+          }
+            const res = await categoriesApi.getPostByTags(tag._id);
+            data.count = res.data.data.count;
+            // check if tagId is in postPerTag
+            const index = postPerTag.findIndex((item)=>item.tagId === tag._id);
+            if(index === -1){
+              postPerTag.push(data);
+            }else{
+              postPerTag[index] = data;
+            }
+            setPostPerTag(postPerTag);
+            resolve(res.data);
+          })
+        }))      
+      }
 
+    })()
+  },[tags])
+  tags.sort((a,b)=> new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
   return (
     <div className="h-full">
       <Topbar />
@@ -59,7 +83,13 @@ export default function Tags() {
           </div>
           {
             tags.length > 0 && tags.map((tag,index) => <div key={index}>
-                {tag.name}
+                {tag.name} | {
+                  postPerTag.map(p => {
+                    if(p.tagId === tag._id){
+                      return `${p.count} bài viết`
+                    }
+                  })
+                }
             </div>)
           }
         </div>

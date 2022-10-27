@@ -33,6 +33,8 @@ export default function Personal() {
   return (
     <div className="w-full h-full relative bg-[#F5F5F6]">
       <Topbar />
+      <div className="p-2 flex flex-wrap gap-x-4">
+
       {posts.length === 0 && (
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ">
           <div className="text-xl">
@@ -54,6 +56,8 @@ export default function Personal() {
       {posts.map((post, index) => (
         <Post post={post} key={index} />
       ))}
+      </div>
+
     </div>
   );
 }

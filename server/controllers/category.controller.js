@@ -1,5 +1,6 @@
 const queryString = require('query-string');
 const category = require('../models/category.model')
+const post = require("../models/post.model");
 
 module.exports = {
     // CREATE CATEGORY
@@ -35,7 +36,7 @@ module.exports = {
             const queryObject = queryString.parseUrl(req.url);
             if(queryObject.query.q){
             const cates = await category.find({
-                name: {$regex: queryObject.query.q} 
+                name: {$regex: (queryObject.query.q), $options: "i"}
             });
             res.status(200).json(cates)}
             else{
@@ -44,6 +45,27 @@ module.exports = {
             }
         } catch (error) {
             console.log(error);
+            res.status(500).json({success: false, message: "Loi server!"});
+        }
+    },
+    getPostByTag: async (req,res)=>{
+        try{
+            const {tagId} = req.params;
+            console.log(tagId);
+            const postByTag = await post.find({
+                categories: {
+                    $in: [tagId]
+                }
+            }).count();
+            res.status(200).json({
+                success: true,
+                message: "Get post by tag success!",
+                data: {
+                    tagId: tagId,
+                    count: postByTag
+                }
+            })
+        }catch(error){
             res.status(500).json({success: false, message: "Loi server!"});
         }
     }

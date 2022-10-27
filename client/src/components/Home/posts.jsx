@@ -15,7 +15,7 @@ export default function Posts() {
     fetchPosts();
   }, [search]);
   if(posts){
-   return  <div className="flex flex-wrap justify-center">
+   return  <div className="flex flex-wrap justify-center gap-x-5 gap-y-5 p-4 items-start">
     {posts.map((post, index) => (
       <Post post = {post} key={index}/>
     ))}
