@@ -7,13 +7,13 @@ const { populate } = require('../models/post.model');
 module.exports = {
   //CREATE POST
   createPost: async (req, res) => {
-    const {_id} = req.user;
+    const { _id } = req.user;
     req.body.author = _id;
     const newPost = new post(req.body);
     try {
       console.log(newPost);
       const savePost = await newPost.save();
-      res.status(200).json({ message: 'Tao post thanh cong!', data: savePost});
+      res.status(200).json({ message: 'Tao post thanh cong!', data: savePost });
     } catch (error) {
       console.log(error);
       res.status(409).json({
@@ -26,12 +26,11 @@ module.exports = {
   //UPDATE POST
   updatePostById: async (req, res) => {
     const { id } = req.params;
-    const {_id} = req.user;
+    const { _id } = req.user;
     try {
       const Post = await post.findById(id);
 
       if (Post.author.toString() === _id) {
-
         try {
           const updatePost = await post.findByIdAndUpdate(
             id,
@@ -58,9 +57,9 @@ module.exports = {
   //DELETE POST
   deletePostById: async (req, res) => {
     const { id } = req.params;
-    const {_id} = req.user;
+    const { _id } = req.user;
     try {
-      const Post = await post.findById(id).populate("author");
+      const Post = await post.findById(id).populate('author');
       console.log(Post);
       if (Post.author._id.toString() === _id) {
         try {
@@ -86,11 +85,10 @@ module.exports = {
     const { id } = req.params;
 
     try {
-      const Post = await post.findById(id,{
-        
-      })
-      .populate('author')
-      .populate("categories")
+      const Post = await post
+        .findById(id, {})
+        .populate('author')
+        .populate('categories');
       res.status(200).json(Post);
     } catch (error) {
       console.log(error);
@@ -106,15 +104,17 @@ module.exports = {
     try {
       let posts;
       if (username) {
-        posts = await post.find({ username });
+        posts = await post.find({ username }).populate("author");
       } else if (cateName) {
         posts = await post.find({
           categories: {
             $in: [cateName],
           },
-        });
+        }).populate("author");
       } else {
-        posts = await post.find();
+        posts = await post.find().populate("author").populate("categories");
+        
+        console.log(posts);
       }
       res.status(200).json(posts);
     } catch (error) {
@@ -124,22 +124,21 @@ module.exports = {
 
   //GET POSTS BY AUTHOR
   getPostsByAuthor: async (req, res) => {
-    console.log("Man an cut")
-    const {author} = req.query;
+    console.log('Man an cut');
+    const { author } = req.query;
     console.log(req.query);
     console.log(author);
-    try{
-      const user = await userModel.findOne({username: author});
+    try {
+      const user = await userModel.findOne({ username: author });
       console.log(user);
-      const posts = await post.find({author: user._id});
+      const posts = await post.find({ author: user._id }).populate("author").populate("categories");
       res.status(200).json({
         posts: posts,
         user: user.username,
       });
-    }catch(error){
+    } catch (error) {
       console.log(error);
-          res.status(500).json(error)
-
+      res.status(500).json(error);
     }
-  }
+  },
 };
