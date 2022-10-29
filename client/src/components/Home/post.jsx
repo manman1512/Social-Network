@@ -16,11 +16,11 @@ export default function Post({ post }) {
       }}
     >
       {previewImage && (
-        <img className="w-full rounded-lg my-1" src={previewImage} alt="" />
+        <img className="w-96 h-96 rounded-lg my-1 flex ml-20" src={previewImage} alt="" />
       )}
 
       <div className="p-2">
-        <span className="cursor-pointer mt-2 font-bold text-2xl line-clamp-2">
+        <span className=" mt-2 font-bold text-3xl line-clamp-2 text-center">
           {post.title}
         </span>
 
@@ -57,21 +57,21 @@ export default function Post({ post }) {
           </PreviewContent>
         </p>
         <div className="flex items-center gap-x-2">
-          <div className="flex items-center gap-x-1">
+          <div className="flex items-center gap-x-1 pt-3 pr-3">
             {/* views */}
-            <AiOutlineEye/>
+            <AiOutlineEye color="green"/>
             0
             Lượt xem
           </div>
-          <div className="flex items-center gap-x-1">
+          <div className="flex items-center gap-x-1 pt-3">
                       {/* comments */}
-            <GoComment/>
+            <GoComment color="green"/>
             0
             Bình luận
           </div>
 
-          <Link className="ml-auto text-[#7367f0]" to={`/post/${post._id}`}>
-            Xem them
+          <Link className="ml-auto text-[#7367f0] pt-3" to={`/post/${post._id}`}>
+            Xem thêm  
           </Link>
         </div>
       </div>

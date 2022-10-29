@@ -22,6 +22,6 @@ export default function Posts() {
 
   </div>
   }else{
-return <div>Div</div>
+return <div></div>
   }
 }

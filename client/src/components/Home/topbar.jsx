@@ -1,7 +1,8 @@
 import React, { useContext, useEffect } from 'react';
-import { AiFillSetting } from 'react-icons/ai';
+import { AiFillSetting, AiOutlineSearch } from 'react-icons/ai';
 import { FiLogOut } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
+import categoriesApi from '../../axiosClient/api/categories.js';
 import { userApi } from '../../axiosClient/api/user.js';
 import { setUser } from '../context/Actions.js';
 import { Context } from '../context/Context.js';
@@ -29,16 +30,18 @@ export default function Topbar() {
     }
   }, []);
 
-  // const handleClickDropdown = () => {
-  //   setHideDrop(!hideDrop);
-  // };
+  const handleFindTags = async () => {
+    // const response = await categoriesApi.getPostByTags();
+    // console.log(response)
+    
+  };
 
   return (
     <div
       className="w-auto h-12 sticky text-black font-bold top-0 flex items-center 
       font-sans bg-white px-2 z-[99999]"
       style={{
-        boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"
+        boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',
       }}
     >
       <div className="flex-auto font-[’Roboto-Regular’,sans-serif]">
@@ -85,42 +88,68 @@ export default function Topbar() {
       </div>
 
       {state.user ? (
-        <div className="flex items-center justify-center flex-initial group">
-          {/* <Link to="../Setting"> */}
-          <img
-            className="w-10 h-10 rounded-full object-cover cursor-pointer"
-            src={
-              state.user.profilePic
-                ? `${PF}/images/${state.user.profilePic}`
-                : 'https://picsum.photos/40'
-            }
-            alt=""
-          />
-          <p className="mr-3 ml-2 w-20 truncate">{state.user.displayName}</p>
-          {/* </Link> */}
-          <div className=" absolute invisible group-hover:visible">
-            <div className="bg-[#F0F2F5] mt-28 p-2 relative mr-3 rounded-lg ">
-              <Link to="/setting" className="ml-1 flex items-center">
-                <AiFillSetting
-                  size="1.2rem"
-                  color="black"
-                  className="hover:text-gray-400"
-                />
-                <p className="pl-2 text-black hover:text-gray-400">Chỉnh sửa</p>
-              </Link>
-              <Link
-                to="/logout"
-                className="ml-1 flex items-center "
-                onClick={handleClick}
-              >
-                <FiLogOut
-                  size="1.2rem"
-                  color="black"
-                  className="hover:text-gray-400"
-                />
-                <p className="pl-2 text-black hover:text-gray-400">Đăng xuất</p>
-              </Link>
-              {/* </div> */}
+        <div className="flex items-center">
+          <div className=" flex mr-5 relative">
+            <input
+              // value={tag}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') handleFindTags();
+              }}
+              // onChange={(e) => {
+              //   setTag(e.target.value);
+              // }}
+              type="text"
+              id="search"
+              placeholder="Tìm kiếm tags"
+              className="border border-gray-400 focus:border-blue-300 outline-none p-1
+              rounded-md "
+            />
+            <label htmlFor="search">
+              <div className="absolute right-2 bottom-1">
+                <AiOutlineSearch size="1.6rem" />
+              </div>
+            </label>
+          </div>
+          <div className="flex items-center justify-center flex-initial group">
+            <img
+              className="w-10 h-10 rounded-full object-cover cursor-pointer"
+              src={
+                state.user.profilePic
+                  ? `${PF}/images/${state.user.profilePic}`
+                  : 'https://picsum.photos/40'
+              }
+              alt=""
+            />
+            <p className="mr-3 ml-2 w-20 truncate">{state.user.displayName}</p>
+            {/* </Link> */}
+            <div className=" absolute invisible group-hover:visible">
+              <div className="bg-[#F0F2F5] mt-28 p-2 relative mr-3 rounded-lg ">
+                <Link to="/setting" className="ml-1 flex items-center">
+                  <AiFillSetting
+                    size="1.2rem"
+                    color="black"
+                    className="hover:text-gray-400"
+                  />
+                  <p className="pl-2 text-black hover:text-gray-400">
+                    Chỉnh sửa
+                  </p>
+                </Link>
+                <Link
+                  to="/logout"
+                  className="ml-1 flex items-center "
+                  onClick={handleClick}
+                >
+                  <FiLogOut
+                    size="1.2rem"
+                    color="black"
+                    className="hover:text-gray-400"
+                  />
+                  <p className="pl-2 text-black hover:text-gray-400">
+                    Đăng xuất
+                  </p>
+                </Link>
+                {/* </div> */}
+              </div>
             </div>
           </div>
         </div>

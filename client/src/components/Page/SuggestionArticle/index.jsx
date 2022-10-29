@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import postsApi from '../../../axiosClient/api/posts';
 import Carousel from 'react-multi-carousel';
 import { useNavigate } from 'react-router-dom';
+import { Context } from '../../context/Context';
+import { userApi } from '../../../axiosClient/api/user';
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -24,6 +26,9 @@ export default function SuggestionArticle({ author, _id, tags }) {
   const [authorArticle, setAuthorArticle] = useState();
   const [user, setUser] = useState('');
   const navigate = useNavigate();
+
+  const [state, dispatch] = useContext(Context);
+
   console.log(_id);
   console.log(tags);
   useEffect(() => {
@@ -31,6 +36,7 @@ export default function SuggestionArticle({ author, _id, tags }) {
       if (author) {
         try {
           const res = await postsApi.getPostByAuthor(author);
+          console.log(res.data)
 
           const x = res.data.posts.filter((item) => item._id !== _id);
           setAuthorArticle(x);
@@ -41,12 +47,16 @@ export default function SuggestionArticle({ author, _id, tags }) {
       }
     })();
   }, [author, _id]);
+
+
   return (
     <div className="py-12">
       <div className="">
       </div>
       <div>
         <b>Bài viết khác của {user || 'User'}</b>
+        {/* <b>Bài viết khác của {state.user.displayName || 'displayName'}</b> */}
+
         {authorArticle && authorArticle.length > 0 && (
           <Carousel
             swipeable={false}
@@ -80,7 +90,7 @@ export default function SuggestionArticle({ author, _id, tags }) {
                     {item.title}
                 </p>
                 <p className="text-lime-500 text-sm">
-                    {user}
+                    {state.user.displayName}
                 </p>
                 
               </div>

@@ -171,11 +171,11 @@ export default function SinglePost({
             </div>
             <div className="ml-auto">
               <p className="font-bold text-gray-500">
-                Da dang vao {new Date(post.createdAt).toDateString()}
+                Đã đăng vào {new Date(post.createdAt).toDateString()}
               </p>
               {post.createdAt !== post.updatedAt && (
                 <p className="text-sm italic text-gray-500">
-                  Cap nhat luc {new Date(post.updatedAt).toDateString()}
+                  Cập nhật lúc {new Date(post.updatedAt).toDateString()}
                 </p>
               )}
             </div>
