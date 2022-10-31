@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { AiFillSetting, AiOutlineSearch } from 'react-icons/ai';
 import { FiLogOut } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import categoriesApi from '../../axiosClient/api/categories.js';
 import { userApi } from '../../axiosClient/api/user.js';
 import { setUser } from '../context/Actions.js';
@@ -9,6 +9,7 @@ import { Context } from '../context/Context.js';
 // import { useState } from 'react';
 
 export default function Topbar() {
+  const navigate = useNavigate();
   const [state, dispatch] = useContext(Context);
   // const [hideDrop, setHideDrop] = useState(false);
 
@@ -29,12 +30,6 @@ export default function Topbar() {
       })();
     }
   }, []);
-
-  const handleFindTags = async () => {
-    // const response = await categoriesApi.getPostByTags();
-    // console.log(response)
-    
-  };
 
   return (
     <div
@@ -89,27 +84,7 @@ export default function Topbar() {
 
       {state.user ? (
         <div className="flex items-center">
-          <div className=" flex mr-5 relative">
-            <input
-              // value={tag}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') handleFindTags();
-              }}
-              // onChange={(e) => {
-              //   setTag(e.target.value);
-              // }}
-              type="text"
-              id="search"
-              placeholder="Tìm kiếm tags"
-              className="border border-gray-400 focus:border-blue-300 outline-none p-1
-              rounded-md "
-            />
-            <label htmlFor="search">
-              <div className="absolute right-2 bottom-1">
-                <AiOutlineSearch size="1.6rem" />
-              </div>
-            </label>
-          </div>
+          
           <div className="flex items-center justify-center flex-initial group">
             <img
               className="w-10 h-10 rounded-full object-cover cursor-pointer"

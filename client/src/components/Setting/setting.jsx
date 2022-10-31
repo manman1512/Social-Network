@@ -228,7 +228,7 @@ export default function Setting() {
               <ToastContainer className="mt-9" />
             </div>
           </form>
-          <div>
+          {/* <div>
             <span
               className="mt-3 text-red-500 text-xs cursor-pointer font-bold
                hover:text-red-400"
@@ -236,8 +236,8 @@ export default function Setting() {
             >
               Xoá tài khoản
             </span>
-          </div>
-          {modal && (
+          </div> */}
+          {/* {modal && (
             <div>
               <p>Bạn có chắc muốn xóa tài khoản?</p>
               <div className="">
@@ -257,7 +257,7 @@ export default function Setting() {
                 </button>
               </div>
             </div>
-          )}
+          )} */}
         </div>
         <div></div>
       </div>

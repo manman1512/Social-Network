@@ -26,7 +26,7 @@ export function Input(props) {
 export default function Register() {
   const navigate = useNavigate();
   const [successPass, setSuccessPass] = useState(false);
-  const [lengthPass, setLengthPass] = useState(false);
+  // const [lengthPass, setLengthPass] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,10 +37,7 @@ export default function Register() {
     // console.log(password.length);
 
     try {
-      if(password.length <8 ){
-        setLengthPass(true)
-      }
-      else if (password !== passwordConfirm) {
+       if (password !== passwordConfirm) {
         setSuccessPass(true);
       } else {
         const response = await axiosClient.post('/auth/register', {
@@ -103,13 +100,13 @@ export default function Register() {
               name="passwordConfirm"
               className="inp"
             />
-            {lengthPass && (
+            {/* {lengthPass && (
               <span className="text-red-500 mt-3 flex ml-1">
                 <div>
                   <b>Mật khẩu phải lớn hơn 8 ký tự!</b>
                 </div>
               </span>
-            )}
+            )} */}
             {successPass && (
               <span className="text-red-500 mt-3 flex ml-1">
                 <div>

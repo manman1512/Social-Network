@@ -16,6 +16,9 @@ const categoriesApi = {
     },
     getPostByTags: async(tagId)=>{
         return await axiosClient.get(`/categories/${tagId}`)
+    },
+    getPostByTag: async(name)=>{
+        return await axiosClient.get(`/categories/${name}`)
     }
 }
 export default categoriesApi

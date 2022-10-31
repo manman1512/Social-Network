@@ -12,6 +12,7 @@ import { userApi } from './axiosClient/api/user';
 import { setUser } from './components/context/Actions';
 import { Context } from './components/context/Context';
 import Tags from './components/tags';
+import SearchPost from './components/SearchPost';
 
 function App() {
   // const user = false;
@@ -35,6 +36,7 @@ function App() {
           <Route path="/post/:postId" element={<Page />} />
           <Route path="/write" element={<Write />} />
           <Route path="/:username/posts" element={<Personal />} />
+          <Route path="/posts" element={<SearchPost/>}/>
           <Route path="/setting" element={<Setting />}/>
           <Route path="/update/:postId" element={<Write/>}/>
           <Route path="/tags" element={<Tags />}/>

@@ -48,7 +48,7 @@ module.exports = {
             res.status(500).json({success: false, message: "Loi server!"});
         }
     },
-    getPostByTag: async (req,res)=>{
+    getPostByTags: async (req,res)=>{
         try{
             const {tagId} = req.params;
             console.log(tagId);
@@ -68,5 +68,27 @@ module.exports = {
         }catch(error){
             res.status(500).json({success: false, message: "Loi server!"});
         }
-    }
+    },
+
+    getPostByTag:async (req,res)=>{
+        try{
+            const {name} = req.params;
+            console.log(name);
+            const postByTag = await post.find({
+                categories: {
+                    $in: [name]
+                }
+            }).count();
+            res.status(200).json({
+                success: true,
+                message: "Get post by tagName success!",
+                data: {
+                    name: name,
+                    count: postByTag
+                }
+            })
+        }catch(error){
+            res.status(500).json({success: false, message: "Loi server!"});
+        }
+    },
 }

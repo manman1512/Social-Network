@@ -16,7 +16,11 @@ export default function Post({ post }) {
       }}
     >
       {previewImage && (
-        <img className="w-96 h-96 rounded-lg my-1 flex ml-20" src={previewImage} alt="" />
+        <img
+          className="w-96 h-96 rounded-lg my-1 flex ml-20"
+          src={previewImage}
+          alt=""
+        />
       )}
 
       <div className="p-2">
@@ -39,12 +43,15 @@ export default function Post({ post }) {
         </div>
         <div className="flex items-center my-2 gap-x-2 truncate">
           {post.categories.map((cate, index) => (
-            <span
-              className="leading-3 px-2 py-1 rounded-full italic tags"
-              key={index}
-            >
-              {cate.name}
-            </span>
+            <Link to={`/posts?tag=${cate.name}`}>
+              {/* {console.log(cate.name)} */}
+              <span
+                className="leading-3 px-2 py-1 rounded-full italic tags"
+                key={index}
+              >
+                {cate.name}
+              </span>
+            </Link>
           ))}
         </div>
         <p className="mt-2">
@@ -59,19 +66,18 @@ export default function Post({ post }) {
         <div className="flex items-center gap-x-2">
           <div className="flex items-center gap-x-1 pt-3 pr-3">
             {/* views */}
-            <AiOutlineEye color="green"/>
-            0
-            Lượt xem
+            <AiOutlineEye color="green" />0 Lượt xem
           </div>
           <div className="flex items-center gap-x-1 pt-3">
-                      {/* comments */}
-            <GoComment color="green"/>
-            0
-            Bình luận
+            {/* comments */}
+            <GoComment color="green" />0 Bình luận
           </div>
 
-          <Link className="ml-auto text-[#7367f0] pt-3" to={`/post/${post._id}`}>
-            Xem thêm  
+          <Link
+            className="ml-auto text-[#7367f0] pt-3"
+            to={`/post/${post._id}`}
+          >
+            Xem thêm
           </Link>
         </div>
       </div>
