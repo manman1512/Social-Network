@@ -48,47 +48,41 @@ module.exports = {
             res.status(500).json({success: false, message: "Loi server!"});
         }
     },
-    getPostByTags: async (req,res)=>{
-        try{
-            const {tagId} = req.params;
-            console.log(tagId);
-            const postByTag = await post.find({
-                categories: {
-                    $in: [tagId]
-                }
-            }).count();
-            res.status(200).json({
-                success: true,
-                message: "Get post by tag success!",
-                data: {
-                    tagId: tagId,
-                    count: postByTag
-                }
-            })
-        }catch(error){
-            res.status(500).json({success: false, message: "Loi server!"});
-        }
-    },
+    // getPostByTags: async (req,res)=>{
+    //     try{
+    //         const {tagId} = req.params;
+    //         console.log(tagId);
+    //         const postByTag = await post.find({
+    //             categories: {
+    //                 $in: [tagId]
+    //             }
+    //         }).count();
+    //         res.status(200).json({
+    //             success: true,
+    //             message: "Get post by tag success!",
+    //             data: {
+    //                 tagId: tagId,
+    //                 count: postByTag
+    //             }
+    //         })
+    //     }catch(error){
+    //         res.status(500).json({success: false, message: "Loi serverrrrrrrrr!"});
+    //     }
+    // },
 
     getPostByTag:async (req,res)=>{
         try{
             const {name} = req.params;
             console.log(name);
-            const postByTag = await post.find({
-                categories: {
-                    $in: [name]
-                }
-            }).count();
+            const postByTag = await post.find({ name }).populate("categories");
             res.status(200).json({
-                success: true,
-                message: "Get post by tagName success!",
-                data: {
-                    name: name,
-                    count: postByTag
-                }
+                // success: true,
+                // message: "Get post by tagName success!",
+                postByTag
             })
         }catch(error){
-            res.status(500).json({success: false, message: "Loi server!"});
+            // res.status(500).json({success: false, message: "Loi serverrrrrrrrr!"});
+            console.log(error)
         }
     },
 }
