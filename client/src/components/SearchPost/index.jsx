@@ -5,29 +5,28 @@ import queryString from 'query-string';
 import postsApi from '../../axiosClient/api/posts';
 import categoriesApi from '../../axiosClient/api/categories';
 import Post from '../Home/post';
+import Posts from '../Home/posts';
 
 export default function SearchPost() {
   // const {} = useQuery();
   const { search } = useLocation();
   const { tag } = queryString.parse(search);
-  // console.log(tag);
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     (async () => {
-      const res = await categoriesApi.getPostByTag(tag.name);
+      const res = await categoriesApi.getPostByTag(tag);
       // if()
-      setPosts(res.data.postByTag)
+      setPosts(res.data.posts)
       // console.log(res.data.postByTag)
     })();
-  }, []);
+  }, [tag]);
+  console.log(posts);
 
   return (
     <div className="w-full h-full relative bg-[#F5F5F6]">
       <Topbar />
-      {posts.map((post, index) => (
-        <Post post={post} key={index} />
-      ))}
+      <Posts posts={posts}/>
     </div>
   );
 }

@@ -17,7 +17,7 @@ module.exports = (req, res, next) => {
       try {
         req.user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
         // [afsmnf,fsfnafnj374]
-        console.log(req.user);
+        // console.log(req.user);
         next();
       } catch (error) {
         console.log(error);

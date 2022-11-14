@@ -73,12 +73,27 @@ module.exports = {
     getPostByTag:async (req,res)=>{
         try{
             const {name} = req.params;
-            console.log(name);
-            const postByTag = await post.find({ name }).populate("categories");
+            const postByTag = await category.find({
+                name: name
+            })
+            const promises = []
+            postByTag.forEach((tag)=>{
+                promises.push(new Promise(async(resolve, reject)=>{
+                    try{
+                        const response = await post.find({
+                            categories: tag._id
+                        }).populate("categories").populate("author")
+                        resolve(response);
+                    }catch(error){
+                        reject(error)
+                    }
+                }))
+            })
+            const posts = await Promise.all(promises);
             res.status(200).json({
                 // success: true,
                 // message: "Get post by tagName success!",
-                postByTag
+                posts: posts[0]
             })
         }catch(error){
             // res.status(500).json({success: false, message: "Loi serverrrrrrrrr!"});

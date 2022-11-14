@@ -18,6 +18,7 @@ const categoriesApi = {
         return await axiosClient.get(`/categories/${tagId}`)
     },
     getPostByTag: async(name)=>{
+        console.log(name);
         return await axiosClient.get(`/categories/${name}`)
     }
 }
