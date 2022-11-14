@@ -23,6 +23,15 @@ export default function Write() {
   const [suggestTags, setSuggestTags] = useState([]);
   const navigate = useNavigate();
 
+  const handleAddTag = async () => {
+    const response = await categoriesApi.addTag(tag);
+    if (response.status === 200) {
+      tags.push(response.data);
+      setTags(tags);
+      setTag('');
+    }
+  };
+
   const debounced = useDebouncedCallback(async (value) => {
     const response = await categoriesApi.getByName(value);
     setSuggestTags(response.data);
@@ -190,16 +199,19 @@ export default function Write() {
                 type="text"
                 className="outline-none w-full bg-transparent"
                 value={tag}
-                placeholder={'Chọn thẻ'}
+                placeholder={'Chọn tag'}
                 onChange={(e) => {
                   setTag(e.target.value);
                 }}
+                // onKeyDown={(e) => {
+                //   if (e.code === 'Backspace') {
+                //     if (tag.length === 0) {
+                //       setTags(tags.slice(0, tags.length - 1));
+                //     }
+                //   }
+                // }}
                 onKeyDown={(e) => {
-                  if (e.code === 'Backspace') {
-                    if (tag.length === 0) {
-                      setTags(tags.slice(0, tags.length - 1));
-                    }
-                  }
+                  if (e.key === 'Enter') handleAddTag();
                 }}
               />
               {tag.length > 0 && (

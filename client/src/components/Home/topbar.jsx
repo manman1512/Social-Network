@@ -69,7 +69,7 @@ export default function Topbar() {
               </Link>
             </div>
           )}
-          {state.user && (
+          {/* {state.user && (
             <div className="m-5">
               <Link
                 to="/tags"
@@ -78,7 +78,7 @@ export default function Topbar() {
                 QUẢN LÝ TAG
               </Link>
             </div>
-          )}
+          )} */}
         </div>
       </div>
 
