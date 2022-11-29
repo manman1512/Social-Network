@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon index"
+    "server": "nodemon index",
+    "start": "pm2 serve -s . 3003 -n server"
   },
   "author": "",
   "license": "ISC",
