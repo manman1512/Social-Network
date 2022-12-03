@@ -10,23 +10,23 @@ export default function Post({ post }) {
   console.log(previewImage);
   return (
     <div
-      className="w-[560px] font-mono rounded-lg"
+      className="w-[480px] font-mono rounded-lg"
       style={{
         boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
       }}
     >
       {previewImage && (
         <img
-          className="w-96 h-96 rounded-lg my-1 flex ml-20"
+          className="w-96 h-72 rounded-lg mx-auto my-2"
           src={previewImage}
           alt=""
         />
       )}
 
       <div className="p-2">
-        <span className=" mt-2 font-bold text-3xl line-clamp-2 text-center">
+        <p title={post.title} className="text-left font-bold text-3xl truncate w-full">
           {post.title}
-        </span>
+        </p>
 
         <div className="text-neutral-500 text-xs flex items-center">
           {

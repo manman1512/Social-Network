@@ -31,9 +31,9 @@ export default function Personal() {
   console.log(posts);
 
   return (
-    <div className="w-full h-full relative bg-[#F5F5F6]">
+    <React.Fragment>
       <Topbar />
-      <div className="p-2 flex flex-wrap gap-x-4">
+      <div className="p-2 flex flex-wrap gap-x-4 bg-[#F5F5F6] gap-y-8">
 
       {posts.length === 0 && (
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ">
@@ -58,6 +58,6 @@ export default function Personal() {
       ))}
       </div>
 
-    </div>
+    </React.Fragment>
   );
 }

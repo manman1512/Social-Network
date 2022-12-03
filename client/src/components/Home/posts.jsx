@@ -7,7 +7,7 @@ import Post from './post';
 export default function Posts({posts}) {
  
   if(posts){
-   return  <div className="flex flex-wrap justify-center gap-x-5 gap-y-5 p-4 m-5">
+   return  <div className="flex flex-wrap gap-5 p-4">
     {posts.map((post, index) => (
       <Post post = {post} key={index}/>
     ))}
