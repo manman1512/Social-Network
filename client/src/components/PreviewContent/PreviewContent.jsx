@@ -18,7 +18,7 @@ export default function PreviewContent({ children, setPreviewImage }) {
       const converter = new Showdown.Converter();
       divRef.current.innerHTML = divRef.current.innerHTML.replace(
         '#REPLACEDDD',
-        // `<span class="text-red-300 font-bold">--Ảnh phía trên--</span>`
+        `<span class="text-red-300 font-bold">--Ảnh phía trên--</span>`
       );
       const content = divRef.current.innerHTML;
       divRef.current.innerHTML = converter.makeHtml(content);
@@ -27,9 +27,8 @@ export default function PreviewContent({ children, setPreviewImage }) {
   return (
     <div>
       <div ref={divRef} className="line-clamp-4">
-        {children.replace(/<img .*?>/g, '#REPLACEDDD')}
+        {children.replaceAll(/<img .*?>/ig, "")}
       </div>
-      {/* <img src={avatarUrl} alt=""/> */}
     </div>
   );
 }

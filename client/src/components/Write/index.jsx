@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import Topbar from '../Home/topbar';
 import CreateArticle from './CreateArticle';
@@ -22,8 +23,7 @@ export default function Write() {
   const [onLoadingTags, setOnLoadingTags] = useState(false);
   const [suggestTags, setSuggestTags] = useState([]);
   const navigate = useNavigate();
-
-  const handleAddTag = async () => {
+  const addTag = async (tag) => {
     const response = await categoriesApi.addTag(tag);
     if (response.status === 200) {
       tags.push(response.data);
@@ -31,12 +31,30 @@ export default function Write() {
       setTag('');
     }
   };
+  const handleAddTag = async () => {
+    if (!onLoadingTags) {
+      const isExistInTag = tags.filter((t) => t.name === tag);
+      if (isExistInTag.length === 0) {
+        const isExist = suggestTags.filter((st) => st.name === tag);
+        if (isExist.length === 0) {
+          await addTag(tag);
+        } else {
+          setTags((prev) => [...prev, isExist[0]]);
+          setTag('');
+        }
+      }else{
+        alert("Tag existed")
+        setTag("");
+        
+      }
+    }
+  };
 
   const debounced = useDebouncedCallback(async (value) => {
     const response = await categoriesApi.getByName(value);
     setSuggestTags(response.data);
     setOnLoadingTags(false);
-    console.log(response);
+    // console.log(response);
   }, 200);
   useEffect(() => {
     if (tag.length === 0) {
@@ -214,7 +232,7 @@ export default function Write() {
                   if (e.key === 'Enter') handleAddTag();
                 }}
               />
-              {tag.length > 0 && (
+              {suggestTags.length > 0 && tag.length > 0 && (
                 <div
                   className="absolute w-[99%] bg-white min-h-[70px] left-1/2 -translate-x-1/2
                  translate-y-6 suggestion flex flex-col gap-y-4 py-2 z-[100]"

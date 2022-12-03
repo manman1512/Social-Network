@@ -156,8 +156,8 @@ export default function SinglePost({
           <div className="flex gap-x-4 items-center">
             <img
               src={
-                state.user && state.user.profilePic
-                  ? `${PF}/images/${state.user.profilePic}`
+                post.author && post.author.profilePic
+                  ? `${PF}/images/${post.author.profilePic}`
                   : 'https://picsum.photos/40'
               }
               alt=""
