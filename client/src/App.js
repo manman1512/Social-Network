@@ -40,7 +40,6 @@ function App() {
           <Route path="/setting" element={<Setting />}/>
           <Route path="/update/:postId" element={<Write/>}/>
           <Route path="/tags" element={<Tags />}/>
-
         </Routes>
       </div>
     </Router>
