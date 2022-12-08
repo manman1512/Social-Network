@@ -4,6 +4,7 @@ require("dotenv").config();
 module.exports = (req, res, next) => {
   const authorization = req.headers["authorization"];
   const noSecurePath = ["/api/posts/getAllPost", "/api/posts/getPostById/*", "/api/categories"]
+  // console.log(new RegExp("/api/posts/like-post").test(req.path));
   const matches = noSecurePath.filter(pattern => {
     return new RegExp(pattern).test(req.path)
   })

@@ -26,6 +26,11 @@ const postSchema = new Schema(
       type: Date,
       default: Date.now,
     },
+    like:[{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      
+    }]
   },
   { timestamps: true }
 );

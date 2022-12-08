@@ -80,10 +80,64 @@ module.exports = {
     }
   },
 
+  // onLike
+  handleLikePost: async (req, res) => {
+    const {_id} = req.user;
+    const {postId} = req.body;
+    // check post liked by _id
+    const Post = await post.findById(postId);
+    const isLike = Post.like.find(l => l._id.toString() === _id);
+    let count = Post.like.length;
+    if(!isLike){
+      await post.findOneAndUpdate({
+        _id: postId
+      }, {
+        $addToSet: {
+          like: _id
+        }
+      })
+      count++;
+    }else{
+      await post.findOneAndUpdate({
+        _id: postId
+      }, {
+        $pull: {
+          like: _id
+        }
+      })
+      count--;
+    }
+    res.status(200).json({
+      like: !isLike,
+      count
+    })
+
+  },
+  // check is like this postId
+  checkLikePost: async (req, res)=>{
+    const {postId} = req.query;
+    const Post = await post.findById(postId);
+    if(req.user){
+      const {_id} = req.user;
+      res.status(200).json({
+        like: !!Post.like.find(l => l._id.toString() === _id),
+        count: Post.like.length
+      })
+    }else{
+      res.status(200).json({
+        like: false,
+        count: Post.like.length
+      })
+    }
+  },
+  // GET NUMBER LIKE BY ID
+  getNumberLikeById: async (req, res) =>{
+
+  },
+
   //GET POST BY ID
   getPostById: async (req, res) => {
     const { id } = req.params;
-
     try {
       const Post = await post
         .findById(id, {})
@@ -112,9 +166,7 @@ module.exports = {
           },
         }).populate("author");
       } else {
-        posts = await post.find().populate("author").populate("categories");
-        
-        console.log(posts);
+        posts = await post.find().populate("author").populate("categories");        
       }
       res.status(200).json(posts);
     } catch (error) {
@@ -124,7 +176,7 @@ module.exports = {
 
   //GET POSTS BY AUTHOR
   getPostsByAuthor: async (req, res) => {
-    console.log('Man an cut');
+    console.log('11111');
     const { author } = req.query;
     console.log(req.query);
     console.log(author);

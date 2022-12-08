@@ -13,6 +13,15 @@ const postsApi = {
     getPostByAuthor: async (author)=>{
         console.log(author)
         return await axiosClient.get("/posts/getPostsByAuthor", {params: {author}});
+    },
+    likePost: async (postId, isLike)=>{
+        return await axiosClient.post("/posts/like-post",{
+            postId,
+            isLike
+        })
+    },
+    isLikePost: async (postId)=>{
+        return await axiosClient.get("/posts/like-post",{params: {postId}})
     }
 }
 export default postsApi;

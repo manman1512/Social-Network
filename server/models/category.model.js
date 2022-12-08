@@ -15,10 +15,10 @@ const categorySchema = new Schema(
       type: Date,
       default: Date.now,
     },
-    view:{
-      type: Number,
-      default: 0,
-    }
+    // view:{
+    //   type: Number,
+    //   default: 0,
+    // }
   },
   { timestamps: true }
 );

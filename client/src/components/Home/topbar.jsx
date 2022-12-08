@@ -1,5 +1,7 @@
 import React, { useContext, useEffect } from 'react';
-import { AiFillSetting, AiOutlineSearch } from 'react-icons/ai';
+import { AiFillHome, AiFillSetting, AiOutlineSearch } from 'react-icons/ai';
+import { BiMessageSquareAdd, BiUserCircle } from 'react-icons/bi';
+import { BsSearch } from 'react-icons/bs';
 import { FiLogOut } from 'react-icons/fi';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import categoriesApi from '../../axiosClient/api/categories.js';
@@ -39,33 +41,33 @@ export default function Topbar() {
         boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',
       }}
     >
-      <div className="flex-auto font-[’Roboto-Regular’,sans-serif]">
-        <div className="flex ">
-          <div className="m-5">
-            <Link
-              to="/"
-              className="no-underline p-2 rounded-xl hover:bg-[#6e9926]"
-            >
-              TRANG CHỦ
-            </Link>
-          </div>
+      <div className="flex-auto">
+        <div className="flex justify-center">
           {state.user && (
-            <div className="m-5">
-              <Link
-                to={`/${state.user.username}/posts`}
-                className="no-underline p-2 rounded-xl hover:bg-[#6e9926]"
+            <div className="m-5 relative">
+              <label
+                htmlFor="searchUser"
+                className="absolute right-4 bottom-2 cursor-pointer"
               >
-                BÀI VIẾT CÁ NHÂN
-              </Link>
+                <BsSearch />
+              </label>
+              <input
+                id="searchUser"
+                type="text"
+                className="bg-[#EFEFEF] rounded-md p-1 outline-none"
+              />
             </div>
           )}
+          <div className="m-5">
+            <Link to="/">
+              <AiFillHome size="1.5rem" />
+            </Link>
+          </div>
+          {state.user && <div className="m-5"></div>}
           {state.user && (
             <div className="m-5">
-              <Link
-                to="/write"
-                className="no-underline p-2 rounded-xl hover:bg-[#6e9926]"
-              >
-                VIẾT BÀI
+              <Link to="/write" className="">
+                <BiMessageSquareAdd size="1.5rem" />
               </Link>
             </div>
           )}
@@ -84,7 +86,6 @@ export default function Topbar() {
 
       {state.user ? (
         <div className="flex items-center">
-          
           <div className="flex items-center justify-center flex-initial group">
             <img
               className="w-10 h-10 rounded-full object-cover cursor-pointer"
@@ -98,7 +99,18 @@ export default function Topbar() {
             <p className="mr-3 ml-2 w-20 truncate">{state.user.displayName}</p>
             {/* </Link> */}
             <div className=" absolute invisible group-hover:visible">
-              <div className="bg-[#F0F2F5] mt-28 p-2 relative mr-3 rounded-lg ">
+              <div className="bg-[#F0F2F5] mt-32 p-2 relative mr-3 rounded-lg ">
+                <Link
+                  to={`/${state.user.username}/posts`}
+                  className="ml-1 flex items-center"
+                >
+                  <BiUserCircle
+                    size="1.2rem"
+                    color="black"
+                    className="hover:text-gray-400"
+                  />
+                  <p className="pl-2 text-black hover:text-gray-400">Cá nhân</p>
+                </Link>
                 <Link to="/setting" className="ml-1 flex items-center">
                   <AiFillSetting
                     size="1.2rem"
